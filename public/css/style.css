@@ -1,0 +1,128 @@
+.sidebar::-webkit-scrollbar, body::-webkit-scrollbar  {
+  width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb, body::-webkit-scrollbar-thumb {
+  background: #101010; 
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track, body::-webkit-scrollbar-track {
+  background: #212121; 
+}
+.elegant-color hr {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.sidebar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  height: 100vh;
+}
+.sidebar .sidebar-item {
+  transition: 0.3s;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.sidebar .sidebar-item:hover {
+  background-color: #101010;
+}
+.sidebar .sidebar-item.active {
+  transition: 0.3s;
+  background-color: #FFF;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+.sidebar .sidebar-item.active:hover {
+  background-color: #EEE;
+}
+.content {
+  overflow-y: scroll;
+}
+.badge-white {
+  background-color: white !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+table.dataTable thead .sorting:after, table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc_disabled:after, table.dataTable thead .sorting_desc_disabled:before {
+  bottom: 0.5em !important;
+}
+button.btn.dropdown-toggle.btn-light{
+  text-transform: none;
+  margin: 0 !important;
+  background-color: white !important;
+  box-shadow: none !important;
+  border: 1px solid #CCC !important;
+  padding: 0.525rem !important;
+}
+button.btn-light:not([disabled]):not(.disabled).active, button.btn-light:not([disabled]):not(.disabled):active, button.show>.btn-light.dropdown-toggle {
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  background-color: white!important;
+}
+.dropdown-menu.inner.show .selected {
+  background-color: #777;
+  color: white;
+}
+.filter-option-inner-inner {
+  line-height: 1.4;
+  font-size: 0.95rem;
+  color: #777;
+  padding-left: 0.25rem;
+  font-weight: 400;
+}
+.dtable tbody tr {
+  cursor: pointer;
+}
+.dtable tbody tr.selected {
+  background-color: white !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.card.selectable, .card.clickable {
+  cursor: pointer;
+  transition: 0.3s;
+}
+.card.selectable:hover, .card.clickable:hover {
+  background-color: #181818!important;
+}
+.card.selectable.selected {
+  background-color: white !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+.card.selectable.selected .card-header {
+  background-color: #DDD !important;
+}
+.card.selectable.selected .card-body {
+  background-color: #EEE !important;
+}
+.card-image-thumbnail {
+  height: 200px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-size: contain;
+  background-position: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 2px 2px 0 0;
+}
+
+.additive {
+  cursor: pointer;
+}
+.sidebar-toggler-hide {
+  display: none;
+}
+
+@media screen and (max-width: 991px) {
+  .sidebar-toggler-hide {
+    display: block;
+    position: absolute;
+    top: 1rem;
+    right: 0.75rem;
+  }
+  .sidebar {
+    left: -100vw;
+    position: fixed;
+    z-index: 20;
+  }
+}
