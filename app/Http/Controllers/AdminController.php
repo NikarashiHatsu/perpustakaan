@@ -217,6 +217,7 @@ class AdminController extends Controller
 
     /**
      * Update (PUT)
+     * Every update needs password revalidation
      */
     public function update_penulis(Request $request) {
         if (Hash::check($request->password_reconfirm, Auth::user()->password)) {
