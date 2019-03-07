@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" style="background-color: #181818;">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +31,9 @@
 					<li class="nav-item">
 						<a class="nav-link" href="{{ url('/daftar_penulis') }}">Daftar Penulis</a>
 					</li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/tentang') }}">Tentang</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item avatar dropdown">

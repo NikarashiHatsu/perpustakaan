@@ -13,7 +13,7 @@
 
 // Rute Index 
 Route::get('/', 'IndexController@index')->name('index');
-Route::get('/about', 'IndexController@about')->name('about');
+Route::get('/tentang', 'IndexController@tentang')->name('tentang');
 Route::get('/home', function() {
     return redirect('/');
 });

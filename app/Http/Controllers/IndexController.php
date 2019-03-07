@@ -25,4 +25,8 @@ class IndexController extends Controller
 
         return view('kontributor.index', compact('content'));
     }
+    public function tentang()
+    {
+        return view('tentang');
+    }
 }
