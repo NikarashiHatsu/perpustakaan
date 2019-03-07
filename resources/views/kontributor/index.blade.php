@@ -8,7 +8,7 @@
     <div class="col-sm-12 col-lg-6 py-5">
       <h1>Penulis</h1>
       <hr />
-      <p>{{ $content->content }}</p>
+      <p style="text-align: justify;">{!! $content->content !!}</p>
     </div>
   </div>
   <div class="row pt-4">

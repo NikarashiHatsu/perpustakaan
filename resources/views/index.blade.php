@@ -8,7 +8,7 @@
     <div class="col-sm-12 col-lg-6 py-5">
       <h1>{{ config('app.name') }}</h1>
       <hr />
-      <p>{!! nl2br($content->content) !!}</p>
+      <p style="text-align: justify;">{!! nl2br($content->content) !!}</p>
     </div>
   </div>
 </div>
