@@ -16,7 +16,7 @@ class CreateFootersTable extends Migration
         Schema::create('footers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('link_for');
-            $table->string('value');
+            $table->string('value')->nullable();
             $table->timestamps();
         });
     }

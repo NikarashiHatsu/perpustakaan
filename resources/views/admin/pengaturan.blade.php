@@ -368,13 +368,21 @@
               </div>
               <input type="text" name="twitter" class="form-control" placeholder="https://twitter.com" value="{{ $twitter->value }}" />
             </div>
-            <div class="input-group">
+            <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text">
                   <i class="fab fa-instagram"></i>
                 </span>
               </div>
               <input type="text" name="instagram" class="form-control" placeholder="https://instagram.com/" value="{{ $instagram->value }}" />
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+              <input type="password" name="password" class="form-control" placeholder="Masukkan Kata Sandi" required="required" />
             </div>
           </div>
           <div class="modal-footer">
@@ -626,6 +634,29 @@
           }
         });
       }
+    });
+    $("#formChangeFooter").submit(function(e) {
+      e.preventDefault();
+
+      var data = $(this).serialize();
+      
+      $.ajax({
+        url: "{{ url('/admin/update_footer') }}",
+        type: 'post',
+        dataType: 'json',
+        data: data,
+        success: function(data) {
+          if(data['success'] == 1) {
+            alert("Berhasil mengubah informasi footer.");
+            location.reload();
+          } else {
+            alert("Password salah.");
+          }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
+        }
+      });
     });
   });
 </script>

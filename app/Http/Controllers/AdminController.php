@@ -355,6 +355,22 @@ class AdminController extends Controller
             return json_encode($data);
         }
     }
+    public function update_footer(Request $request) {
+        if (Hash::check($request->password, Auth::user()->password)) {
+            $settings = array("facebook", "twitter", "instagram");
+            foreach($settings as $setting) {
+                $name = Footer::where('link_for', $setting)->first();
+                $name->value = $request->$setting;
+                $name->update();
+            }
+
+            $data['success'] = 1;
+            return json_encode($data);
+        } else {
+            $data['success'] = 0;
+            return json_encode($data);
+        }
+    }
     public function update_deskripsi_index(Request $request) {
         if (Hash::check($request->password, Auth::user()->password)) {
             $index = Index::where('setting_for', $request->target)->first();
