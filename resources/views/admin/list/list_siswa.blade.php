@@ -324,7 +324,7 @@
         $("input[name*='edit_kelas']").val(kelas);
         $("input[name*='edit_jurusan']").val(jurusan);
         $("input[name*='edit_rombel']").val(rombel);
-    var serial, length;
+    var serial, serialEdit, length;
 
     $("#titleTambahSiswa").html(classInfo);
     $("#titleEditSiswa").html(classInfo);
@@ -458,7 +458,7 @@
       e.preventDefault();
 
       var data = $(this).serialize();
-          data += "&" + serial;
+          data += "&" + serialEdit;
 
       $.ajax({
         url: '/admin/update_siswa',
@@ -535,7 +535,7 @@
     $("#formEditDataSiswa").submit(function(e) {
       e.preventDefault();
 
-      serial = $(this).serialize();
+      serialEdit = $(this).serialize();
       $(".modal").modal('hide');
       $("#counterEdit").html(length);
       $("#reassureEdit").modal('show');

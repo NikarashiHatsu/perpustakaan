@@ -290,7 +290,7 @@
     $("input[name='max']").val(number - 1);
   }
   $().ready(function() {
-    var serial, length;
+    var serial, serialEdit, length;
     /**
      * Random string generator
      */
@@ -498,7 +498,7 @@
     $("#formEditDataPenulis").submit(function(e) {
       e.preventDefault();
 
-      serial = $(this).serialize();
+      serialEdit = $(this).serialize();
       $(".modal").modal('hide');
       $("#counterEdit").html(length);
       $("#reassureEdit").modal('show');
