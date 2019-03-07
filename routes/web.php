@@ -13,6 +13,7 @@
 
 // Rute Index 
 Route::get('/', 'IndexController@index')->name('index');
+Route::get('/about', 'IndexController@about')->name('about');
 Route::get('/home', function() {
     return redirect('/');
 });

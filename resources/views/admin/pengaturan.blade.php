@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="row">
-  <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
     <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeIndex">
       <div class="card-body">
         <i class="fas fa-home fa-3x mt-3"></i>
@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
     <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeBook">
       <div class="card-body">
         <i class="fas fa-book fa-3x mt-3"></i>
@@ -17,7 +17,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
     <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeWriter">
       <div class="card-body">
         <i class="fas fa-user fa-3x mt-3"></i>
@@ -25,8 +25,16 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
+    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeFooter">
+      <div class="card-body">
+        <i class="fas fa-info fa-3x mt-3"></i>
+        <h4 class="mt-3">Ubah Informasi Footer</h4>
+      </div>
+    </div>
+  </div>
 </div>
-<hr style="border-top: 1px solid rgba(255, 255, 255, 0.1);" />
+<hr style="border-top: 1px solid rgba(255, 255, 255, 0.1);" class="mt-0" />
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4">
     <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangePassword">
@@ -317,6 +325,56 @@
                 </span>
               </div>
               <input type="password" name="password" class="form-control" placeholder="Masukkan Kata Sandi" required="required">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type='submit' class="btn btn-green btn-sm white-text ml-auto">
+              <i class="fas fa-save mr-3"></i>
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalChangeFooter">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100">Ubah Informasi Footer</h4>
+          <button type="button" data-dismiss="modal" class="close">
+            <span>
+              <i class="fas fa-times"></i>
+            </span>
+          </button>
+        </div>
+        <form id="formChangeFooter">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fab fa-facebook"></i>
+                </span>
+              </div>
+              <input type="text" class="form-control" name="facebook" placeholder="https://facebook.com/" value="{{ $facebook->value }}" />
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fab fa-twitter"></i>
+                </span>
+              </div>
+              <input type="text" name="twitter" class="form-control" placeholder="https://twitter.com" value="{{ $twitter->value }}" />
+            </div>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="fab fa-instagram"></i>
+                </span>
+              </div>
+              <input type="text" name="instagram" class="form-control" placeholder="https://instagram.com/" value="{{ $instagram->value }}" />
             </div>
           </div>
           <div class="modal-footer">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Footer; 
 use App\Book;
 use App\Category;
 use App\Subcategory;
@@ -58,10 +59,15 @@ class AdminController extends Controller
     }
     public function pengaturan() {
         $active = 'pengaturan';
+
         $index_content = Index::where('setting_for', 'index')->first();
         $book_content = Index::where('setting_for', 'daftar_buku')->first();
         $writer_content = Index::where('setting_for', 'daftar_penulis')->first();
-        return view('admin.pengaturan', compact('active', 'index_content', 'book_content', 'writer_content'));
+
+        $facebook = Footer::where('link_for', 'facebook')->first();
+        $twitter = Footer::where('link_for', 'twitter')->first();
+        $instagram = Footer::where('link_for', 'instagram')->first();
+        return view('admin.pengaturan', compact('active', 'index_content', 'book_content', 'writer_content', 'facebook', 'twitter', 'instagram'));
     }
 
 
