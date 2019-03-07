@@ -30,7 +30,7 @@
           <div class="row">
             <div class="col-sm-12 white-text text-center pt-4">
               <i class="fas fa-user-circle fa-3x"></i>
-              <h5 class="mt-3 mb-2">{{ Auth::user(); }}</h5>
+              <h5 class="mt-3 mb-2">{{ Auth::user() }}</h5>
             </div>
             <button class="navbar-toggler sidebar-toggler-hide white-text" type="button">
               <i class="fas fa-bars"></i>
