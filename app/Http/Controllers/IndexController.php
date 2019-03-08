@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Index;
+use App\Book;
 
 class IndexController extends Controller
 {
@@ -16,8 +17,9 @@ class IndexController extends Controller
     public function daftar_buku()
     {
         $content = Index::where('setting_for', 'daftar_buku')->first();
+        $buku = Book::all();
         
-        return view('buku.index', compact('content'));
+        return view('buku.index', compact('content', 'buku'));
     }
     public function daftar_penulis()
     {

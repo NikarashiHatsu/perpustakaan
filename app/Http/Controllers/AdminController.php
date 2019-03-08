@@ -22,7 +22,17 @@ class AdminController extends Controller
 
     public function index() {
         $active = 'index';
-        return view('admin.index', compact('active'));
+
+        $bulan = getdate()['mon'];
+        $define_bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+        $data_bulan = "";
+
+        for ($i = 1; $i <= $bulan; $i ++) {
+            $data_bulan .= '"' . $define_bulan[$i - 1] . '"';
+            $data_bulan .= ",";
+        }
+
+        return view('admin.index', compact('active', 'data_bulan'));
     }
     public function penulis() {
         $active = 'penulis';

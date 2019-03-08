@@ -104,6 +104,7 @@ button.btn-light:not([disabled]):not(.disabled).active, button.btn-light:not([di
   background-position: center;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 2px 2px 0 0;
+  pointer-events: none;
 }
 
 .additive {

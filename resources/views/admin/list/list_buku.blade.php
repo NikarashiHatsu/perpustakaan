@@ -493,8 +493,8 @@
               // " + (data[data_category_id] == '{{ $kategori->id }}' ? 'selected' : '') + "
               options = "\
               @forelse($kategori_opsi as $kategori)\
-              <optgroup label='{{ ucwords(str_replace('_', ' ', $kategori->category_name)) }}'>\
-                @forelse ($kategori->subcategory as $subkategori)\
+                <optgroup label='{{ ucwords(str_replace('_', ' ', $kategori->category_name)) }}'>\
+                  @forelse ($kategori->subcategory as $subkategori)\
                     <option " + choice(data[subcategory_ids], '{{ $subkategori->id }}') + " value='{{ $subkategori->id }}'>{{ ucwords(str_replace('_', ' ', $subkategori->subcategory_name)) }}</option>\
                   @empty\
                   @endforelse\

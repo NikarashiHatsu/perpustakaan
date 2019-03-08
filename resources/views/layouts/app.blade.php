@@ -15,6 +15,7 @@
   <script src="{{ asset('/js/Chart.min.js') }}"></script>
   <script src="{{ asset('/js/addons/datatables.min.js') }}"></script>
   <script src="{{ asset('/js/addons/datatables-select.min.js') }}"></script>
+  <script src="{{ asset('/js/moment-with-locales.js') }}"></script>
 </head>
 <body>
   <header style="position: sticky; -webkit-position: sticky; top: 0; z-index: 100;">

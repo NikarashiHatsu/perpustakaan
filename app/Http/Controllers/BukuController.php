@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Book;
 
 class BukuController extends Controller
 {
@@ -10,12 +11,16 @@ class BukuController extends Controller
     {
         return view('buku.index');
     }
-    public function detail_buku()
+    public function detail_buku($id)
     {
-        return view('buku.detail');
+        $buku = Book::find($id);
+        
+        return view('buku.detail', compact('buku'));
     }
-    public function halaman_buku()
+    public function halaman_buku($id, $halaman)
     {
-        return view('buku.halaman');
+        $buku = Book::find($id);
+
+        return view('buku.halaman', compact('buku', 'halaman'));
     }
 }

@@ -10,23 +10,27 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Admin
-          <span class="badge badge-pill badge-white">3</span>
+          <span class="badge badge-pill badge-white">{{ \App\User::where('role', '2')->count() }}</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
-          Guru
-          <span class="badge badge-pill badge-white">20</span>
+          Penulis
+          <span class="badge badge-pill badge-white">{{ \App\User::where('role', '1')->count() }}</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Siswa
-          <span class="badge badge-pill badge-white">1500</span>
+          <span class="badge badge-pill badge-white">{{ \App\User::where('role', '0')->count() }}</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Kategori
-          <span class="badge badge-pill badge-white">40</span>
+          <span class="badge badge-pill badge-white">{{ \App\Category::count() }}</span>
+        </li>
+        <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
+          Subkategori
+          <span class="badge badge-pill badge-white">{{ \App\Subcategory::count() }}</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku
-          <span class="badge badge-pill badge-white">6</span>
+          <span class="badge badge-pill badge-white">{{ \App\Book::count() }}</span>
         </li>
       </ul>
     </div>
@@ -38,7 +42,7 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku Diunggah
-          <span class="badge badge-pill badge-white">6x</span>
+          <span class="badge badge-pill badge-white">{{ \App\Book::where('created_at', 'like', '2019-' . '%')->count() }}x</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku Diunduh
@@ -46,10 +50,6 @@
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku Dilihat
-          <span class="badge badge-pill badge-white">20x</span>
-        </li>
-        <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
-          Buku Difavoritkan
           <span class="badge badge-pill badge-white">20x</span>
         </li>
       </ul>
@@ -77,8 +77,7 @@
           var myChart = new Chart(ctx, {
               type: 'line',
               data: {
-                labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                          "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+                labels: [{!! $data_bulan !!}],
                 datasets: [{
                   label: 'Buku Diunggah',
                   data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
