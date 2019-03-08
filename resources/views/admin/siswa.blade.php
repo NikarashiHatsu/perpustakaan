@@ -51,42 +51,44 @@
 </div>
 <script>
   $().ready(function() {
-    var kelas = $("select[name*='kelas']");
-        jurusan = $("select[name*='jurusan']");
-        rombel = $("select[name*='rombel']");
+    var kelasSelect = $("select[name*='kelas']");
+        jurusanSelect = $("select[name*='jurusan']");
+        rombelSelect = $("select[name*='rombel']");
+        kelasValue = undefined;
+        jurusanValue = undefined;
+        rombelValue = undefined;
     
-    kelas.change(function() {
-      if (kelas.val() != undefined && jurusan.val() != undefined && rombel.val() != undefined) {
-        search();
-      }
+    kelasSelect.change(function() {
+      kelasValue = $(this).val();
+      search();
     });
-    jurusan.change(function() {
-      if (kelas.val() != undefined && jurusan.val() != undefined && rombel.val() != undefined) {
-        search();
-      }
+    jurusanSelect.change(function() {
+      jurusanValue = $(this).val();
+      search();
     });
-    rombel.change(function() {
-      if (kelas.val() != undefined && jurusan.val() != undefined && rombel.val() != undefined) {
-        search();
-      }
+    rombelSelect.change(function() {
+      rombelValue = $(this).val();
+      search();
     });
 
     function search() {
-      var data = {
-        'kelas': $("select[name*='kelas']").val(),
-        'jurusan': $("select[name*='jurusan']").val(),
-        'rombel': $("select[name*='rombel']").val(),
-      }
-
-      $.ajax({
-        url: "{{ url('/admin/list_siswa') }}",
-        data: data,
-        type: 'get',
-        dataType: 'html',
-        success: function(data) {
-          $("#listSiswa").html(data);
+      if ((kelasValue != undefined) && (jurusanValue != undefined) && (rombelValue != undefined)) {
+        var data = {
+          'kelas': $("select[name*='kelas']").val(),
+          'jurusan': $("select[name*='jurusan']").val(),
+          'rombel': $("select[name*='rombel']").val(),
         }
-      });
+
+        $.ajax({
+          url: "{{ url('/admin/list_siswa') }}",
+          data: data,
+          type: 'get',
+          dataType: 'html',
+          success: function(data) {
+            $("#listSiswa").html(data);
+          }
+        });
+      }
     }
   });
 </script>
