@@ -21,6 +21,7 @@
   <script src="{{ asset('/js/addons/datatables-select.min.js') }}"></script>
   <script src="{{ asset('/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('/js/i18n/defaults-id_ID.min.js') }}"></script>
+  <script src="{{ asset('/js/moment-with-locales.js') }}"></script>
 </head>
 <body class="elegant-color">
   <div class="container-fluid">
