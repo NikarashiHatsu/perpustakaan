@@ -14,6 +14,7 @@
 // Rute Index 
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/tentang', 'IndexController@tentang')->name('tentang');
+Route::post('/tambah_view', 'IndexController@tambah_view')->name('tambah_view');
 Route::get('/home', function() {
     return redirect('/');
 });

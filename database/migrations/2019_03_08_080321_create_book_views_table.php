@@ -15,6 +15,7 @@ class CreateBookViewsTable extends Migration
     {
         Schema::create('book_views', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('book_id');
             $table->string('jurusan');
             $table->timestamps();
         });

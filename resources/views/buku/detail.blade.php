@@ -46,7 +46,7 @@
 </div>
 @endsection
 @section('statistic')
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">
     <i class="fas fa-chart-line mr-3"></i>
     Statistik
@@ -54,13 +54,26 @@
   <div class="card-body">
     <p class="mb-1">
       <i class="fas fa-eye mr-3"></i>
-      10x dilihat
+      <span id="seen">{{ App\BookView::where('book_id', $buku->id)->count() }}</span>x dilihat
     </p>
     <p class="mb-1">
       <i class="fas fa-download mr-3"></i>
-      10x diunduh
+      <span id="downloaded">{{ App\BookDownload::where('book_id', $buku->id)->count() }}</span>x diunduh
     </p>
   </div>
+  @if(isset(Auth::user()->name))
+    <div class="card-footer">
+      <button class="btn btn-red btn-sm w-100" onclick="download({{ $buku->id }})">
+        <i class="fas fa-download mr-3"></i>
+        Unduh buku
+      </button>
+    </div>
+    <script>
+      function download(id) {
+        // CHANGES NEEDED
+      }
+    </script>
+  @endif
 </div>
 @endsection
 @section('pages')

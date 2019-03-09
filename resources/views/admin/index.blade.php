@@ -45,11 +45,11 @@
           <span class="badge badge-pill badge-white">{{ \App\Book::where('created_at', 'like', '2019-' . '%')->count() }}x</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
-          Buku Diunduh
-          <span class="badge badge-pill badge-white">10x</span>
+          Buku Dilihat
+          <span class="badge badge-pill badge-white">{{ \App\BookView::count() }}x</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
-          Buku Dilihat
+          Buku Diunduh
           <span class="badge badge-pill badge-white">20x</span>
         </li>
       </ul>

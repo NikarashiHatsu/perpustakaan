@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Index;
 use App\Book;
+use App\BookView;
 
 class IndexController extends Controller
 {
@@ -30,5 +31,16 @@ class IndexController extends Controller
     public function tentang()
     {
         return view('tentang');
+    }
+
+    public function tambah_view(Request $request)
+    {
+        $book_view = new BookView;
+        $book_view->book_id = $request->id_buku;
+        $book_view->jurusan = $request->jurusan;
+        $book_view->save();
+
+        $data['success'] = 1;
+        return json_encode($data);
     }
 }

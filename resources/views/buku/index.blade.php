@@ -22,12 +22,12 @@
   <div class="row">
     @php($id = 1)
     @forelse($buku as $buku)
-      <div class="col-6 col-md-6 col-lg-3 col-xl-2">
+      <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2">
         <div class="card mb-4">
           <small>
-            <img class="card-image-thumbnail" style="height: 17.5rem !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
+            <img class="card-image-thumbnail" style="height: 100% !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
             <div class="card-body">
-              <a href="{{ url('/daftar_buku/' . $buku->id) }}" class='black-text'>
+              <a onclick="relink({!! $buku->id !!})" class='black-text'>
                 <h6>{{ mb_strimwidth($buku->book_title, 0, 20, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
@@ -45,7 +45,7 @@
                 <i class="fas fa-copy mr-3"></i>
                 {{ $buku->page_count }} Halaman
               </p>
-              <p class="mb-1 black-text">
+              <p class="mb-1 black-text categories-wrapper">
                 <i class="fas fa-tags mr-3"></i>
                 @php($subcategories = explode(',', $buku->subcategory_ids))
                 @for($i = 0; $i < count($subcategories); $i++)
@@ -101,4 +101,38 @@
     </div>
   </div>
 </div>
+<form id="token">
+  @csrf
+  @if(isset(Auth::user()->name))
+    @if(Auth::user()->jurusan == "" || Auth::user()->jurusan == NULL)
+      <input type="hidden" name="jurusan" value="anonymous" />
+    @else
+      <input type="hidden" name="jurusan" value="{{ Auth::user()->jurusan }}" />
+    @endif
+  @else
+    <input type="hidden" name="jurusan" value="anonymous" />
+  @endif
+</form>
+<script>
+  function relink(id) {
+    var data = $("#token").serialize() + "&id_buku=" + id;
+
+    $.ajax({
+      url: '/tambah_view',
+      type: 'post',
+      dataType: 'json',  
+      data: data,
+      success: function(data) {
+        if(data['success'] == 1) {
+          window.location.href = "{{ url('/daftar_buku') }}" + "/" + id;
+        } else {
+          alert("Ada kesalahan dalam membuka buku.");
+        }
+      },
+      error: function(data) {
+        alert("Ada kesalahan dalam membuka buku.");
+      }
+    });
+  }
+</script>
 @endsection
