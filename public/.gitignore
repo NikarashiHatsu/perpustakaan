@@ -1,2 +1,6 @@
 *.pdf
 /img/book_page/*.jpg
+/pdf/*.pdf
+/temp_pdf/*.pdf
+/temp_img/*.jpg
+/profile_pictures/*.jpg

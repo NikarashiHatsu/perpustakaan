@@ -54,8 +54,8 @@ class IndexController extends Controller
         return json_encode($data);
     }
     public function unduh(Request $request) {
-        $book_download = Book::find($request->id);
+        $buku = Book::find($request->id_buku);
 
-        return view('buku.unduh');
+        return view('buku.unduh', compact('buku'));
     }
 }
