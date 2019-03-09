@@ -1,3 +1,3 @@
 # Perpustakaan Digital // e-Library
 
-Informasi selengkapnya masih dibangun // Complete information will be formed soon
+Informasi selengkapnya masih dibangun // Complete information is in progress.
