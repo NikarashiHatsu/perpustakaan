@@ -28,7 +28,7 @@
             <img class="card-image-thumbnail" style="height: 100% !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
             <div class="card-body">
               <a onclick="relink({!! $buku->id !!})" class='black-text'>
-                <h6>{{ mb_strimwidth($buku->book_title, 0, 20, '...') }}</h6>
+                <h6>{{ mb_strimwidth($buku->book_title, 0, 18, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
               <a href="{{ url('/kontributor/nikarashihatsu') }}">

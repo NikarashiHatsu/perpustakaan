@@ -153,10 +153,17 @@ class AdminController extends Controller
         return json_encode($data);
     }
     public function store_buku(Request $request) {
+        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/pdf/')) {
+            mkdir($_SERVER['DOCUMENT_ROOT'] . '/pdf/', 0777);
+        }
+        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/book_page/')) {
+            mkdir($_SERVER['DOCUMENT_ROOT'] . '/img/book_page/', 0777);
+        }
+
         $file = $request->file('upload');
         $time = time();
         $book_name = "book_" . $time;
-        $pdf = $file->move('pdf/', $book_name . '.pdf');
+        $pdf = $file->move($_SERVER['DOCUMENT_ROOT'] . '/pdf/', $book_name . '.pdf');
         $subcat = "";
 
         $img = new \Imagick($_SERVER['DOCUMENT_ROOT'] . '/pdf/' . $book_name . '.pdf');
@@ -513,9 +520,9 @@ class AdminController extends Controller
             for($i = 1; $i <= $request->max; $i++) {
                 $string = "data_" . $i;
                 $book = Book::find($request->$string);
-                unlink("pdf/" . $book->book_name . '.pdf');
+                unlink($_SERVER['DOCUMENT_ROOT'] . "/pdf/" . $book->book_name . '.pdf');
                 for($j = 1; $j <= $book->page_count; $j++) {
-                    unlink("img/book_page/" . $book->book_name . "_page_" . $j . ".jpg");
+                    unlink($_SERVER['DOCUMENT_ROOT'] . "/img/book_page/" . $book->book_name . "_page_" . $j . ".jpg");
                 }
                 $book->delete();
             }
@@ -619,14 +626,21 @@ class AdminController extends Controller
      * MISC
      */
     public function thumbnail_creator(Request $request) {
+        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/')) {
+            mkdir($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/', 0777);
+        }
+        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/temp_img/')) {
+            mkdir($_SERVER['DOCUMENT_ROOT'] . '/temp_img/', 0777);
+        }
+
         $file = $request->file('upload');
         $pdf_name = "eLib-" . time() . '.pdf';
         $thumbnail_name = "eLib-" . time() . '.jpg';
-        $file->move('temp_pdf', $pdf_name);
+        $file->move($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/', $pdf_name);
         
-        $img = new \Imagick('temp_pdf/' . $pdf_name . '[0]');
+        $img = new \Imagick($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/' . $pdf_name . '[0]');
         $img->setImageFormat('jpg');
-        $img->writeImage('temp_img/' . $thumbnail_name);
+        $img->writeImage($_SERVER['DOCUMENT_ROOT'] . '/temp_img/' . $thumbnail_name);
 
         $data['success'] = 1;
         $data['nama_asli'] = $file->getClientOriginalName();
@@ -638,8 +652,8 @@ class AdminController extends Controller
         $pdf = $request->pdf;
         $img = $request->img;
 
-        unlink("temp_pdf/" . $pdf);
-        unlink("temp_img/" . $img);
+        unlink($_SERVER['DOCUMENT_ROOT'] . "/temp_pdf/" . $pdf);
+        unlink($_SERVER['DOCUMENT_ROOT'] . "/temp_img/" . $img);
     }
     public function change_password(Request $request) {
         if (Hash::check($request->old_password, Auth::user()->password)) {
