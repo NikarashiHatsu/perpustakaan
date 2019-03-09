@@ -1,4 +1,5 @@
 <div class="row">
+  @php($id = 1)
   @forelse($buku as $buku)
     <div class="col-sm-12 col-md-6 col-lg-3">
       <div class="card bg-dark white-text mb-3 selectable" data-id="{{ $buku->id }}">
@@ -31,11 +32,19 @@
           </div>
           <div class="card-footer">
             <i class="fas fa-clock mr-3"></i>
-            {{ $buku->created_at }}
+            <span id="time{{ $id }}"></span>
+            @php($time = explode(',', str_replace(' ', ',', str_replace('-', ' ', str_replace(':', ' ', $buku->created_at)))))
+            @php($time[1] = $time[1] - 1)
+            @php($time = implode(',', $time))
+            <script>
+              moment.locale('id');
+              $("#time{{ $id }}").html(moment([{{ $time }}]).fromNow())
+            </script>
           </div>
         </small>
       </div>
     </div>
+    @php($id++)
   @empty
   @endforelse
   <div class="col-sm-12 col-md-6 col-lg-3">
@@ -56,7 +65,7 @@
           <div class="card-body">
             <p class="mb-3">
               Apakah Anda yakin ingin mengubah <span id="counterEdit"></span> buku yang Anda pilih?
-              <b><i>Buku yang sudah diubah tidak bisa dikembalikan.</i></b>
+              <b><i>Buku yang sudah diubah tidak bisa dikembalikan. Aksi ini tidak mempengaruhi statistik.</i></b>
             </p>
             <form id="formEditBuku">
               @csrf
@@ -87,7 +96,7 @@
           <div class="card-body">
             <p class="mb-3">
               Apakah Anda yakin ingin menghapus <span id="counterDelete"></span> buku yang Anda pilih?
-              <b><i>Buku yang sudah dihapus tidak bisa dikembalikan</i></b>
+              <b><i>Buku yang sudah dihapus tidak bisa dikembalikan. Aksi ini tidak mempengaruhi statistik.</i></b>
             </p>
             <form id="formHapusBuku">
               @csrf

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Footer; 
 use App\Book;
+use App\BookView;
+use App\BookDownload;
 use App\Category;
 use App\Subcategory;
 use App\Index;
@@ -23,16 +25,41 @@ class AdminController extends Controller
     public function index() {
         $active = 'index';
 
+        $tahun = getdate()['year'];
         $bulan = getdate()['mon'];
         $define_bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
-        $data_bulan = "";
 
-        for ($i = 1; $i <= $bulan; $i ++) {
-            $data_bulan .= '"' . $define_bulan[$i - 1] . '"';
-            $data_bulan .= ",";
+        $data_bulan = "";
+        $data_diunggah = "";
+        $data_diunduh = "";
+        $data_dilihat = "";
+
+        for ($i = 1; $i <= $bulan; $i++) {
+            $data_bulan .= '"' . $define_bulan[$i - 1] . '",';
+        }
+        for ($i = 1; $i <= $bulan; $i++) {
+            if($i < 10) {
+                $i = "0" . $i;
+            }
+            $count = Book::where('created_at', 'like', $tahun . '-' . $i . '%')->count();
+            $data_diunggah .= '"' . $count . '",';
+        }
+        for ($i = 1; $i <= $bulan; $i++) {
+            if($i < 10) {
+                $i = "0" . $i;
+            }
+            $count = BookDownload::where('created_at', 'like', $tahun . '-' . $i . '%')->count();
+            $data_diunduh .= '"' . $count . '",';
+        }
+        for ($i = 1; $i <= $bulan; $i++) {
+            if($i < 10) {
+                $i = "0" . $i;
+            }
+            $count = BookView::where('created_at', 'like', $tahun . '-' . $i . '%')->count();
+            $data_dilihat .= '"' . $count . '",';
         }
 
-        return view('admin.index', compact('active', 'data_bulan'));
+        return view('admin.index', compact('active', 'data_bulan', 'data_diunggah', 'data_diunduh', 'data_dilihat'));
     }
     public function penulis() {
         $active = 'penulis';

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Book;
+use App\BookView;
+use App\BookDownload;
 use App\Category;
 use App\Subcategory;
 
@@ -18,7 +20,65 @@ class PenulisController extends Controller
             $change = 1;
         }
 
-        return view('penulis.index', compact('change'));
+        $tahun = getdate()['year'];
+        $bulan = getdate()['mon'];
+        $define_bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+
+        $data_bulan = "";
+        $data_diunggah = "";
+        $data_diunduh = "";
+        $data_dilihat = "";
+        $unduh_akumulatif = 0;
+        $lihat_akumulatif = 0;
+        
+        for ($i = 1; $i <= $bulan; $i++) {
+            $data_bulan .= '"' . $define_bulan[$i - 1] . '",';
+        }
+        
+        /**
+         * Data buku yang diunggah
+         */
+        for ($i = 1; $i <= $bulan; $i++) {
+            if($i < 10) {
+                $i = "0" . $i;
+            }
+            $count = Book::where('created_at', 'like', $tahun . '-' . $i . '%')
+                            ->where('user_id', Auth::user()->id)->count();
+            $data_diunggah .= '"' . $count . '",';
+        }
+        /**
+         * Data buku yang diunduh
+         */
+        $books = Book::where('user_id', Auth::user()->id)->get();
+        $i = 1;
+        foreach($books as $book) {
+            for ($i = 1; $i <= $bulan; $i++) {
+                if($i < 10) {
+                    $i = "0" . $i;
+                }
+                $count = BookDownload::where('created_at', 'like', $tahun . '-' . $i . '%')
+                                    ->where('book_id', $book->id)->count();
+                $unduh_akumulatif += $count;
+                $data_diunduh .= '"' . $count . '",';
+            }
+        }
+        /**
+         * Data buku yang dilihat
+         */
+        $books = Book::where('user_id', Auth::user()->id)->get();
+        foreach($books as $book) {
+            for ($i = 1; $i <= $bulan; $i++) {
+                if($i < 10) {
+                    $i = "0" . $i;
+                }
+                $count = BookView::where('created_at', 'like', $tahun . '-' . $i . '%')
+                                    ->where('book_id', $book->id)->count();
+                $lihat_akumulatif += $count;
+                $data_dilihat .= '"' . $count . '",';
+            }
+        }
+
+        return view('penulis.index', compact('change', 'data_bulan', 'data_diunggah', 'data_diunduh', 'data_dilihat', 'unduh_akumulatif', 'lihat_akumulatif'));
     }
     public function buku() {
         return view('penulis.buku');

@@ -1,7 +1,7 @@
 @extends('layouts.penulis')
 @section('content')
 <div class="row">
-  <div class="col-sm-12 col-md-4 order-sm-first order-md-last">
+  <div class="col-sm-12 col-md-4">
     <div class="card bg-dark white-text mb-3">
       <div class="card-header">
         <i class="fas fa-chart-line mr-3"></i>
@@ -10,20 +10,20 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku diunggah
-          <span class="badge badge-pill badge-white">5</span>
+          <span class="badge badge-pill badge-white">{{ App\Book::where('user_id', Auth::user()->id)->count() }}x</span>
+        </li>
+        <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
+          Buku dilihat
+          <span class="badge badge-pill badge-white">{{ $lihat_akumulatif }}x</span>
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku diunduh
-          <span class="badge badge-pill badge-white">40</span>
-        </li>
-        <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
-          Dilihat
-          <span class="badge badge-pill badge-white">200x</span>
+          <span class="badge badge-pill badge-white">{{ $unduh_akumulatif }}x</span>
         </li>
       </ul>
     </div>
   </div>
-  <div class="col-sm-12 col-md-8">
+  <div class="col-sm-12 col-md-8 order-first">
     @if($change == 1)
       <div class="card bg-warning mb-3">
         <div class="card-header">
@@ -48,7 +48,7 @@
     <div class="card bg-dark white-text">
       <div class="card-header">
         <i class="fas fa-chart-pie mr-3"></i>
-        Statistik Tahun {{ getdate()['year'] }}
+        Statistik <i>{{ Auth::user()->name }}</i> Tahun {{ getdate()['year'] }}
       </div>
       <div class="card-body">
         <canvas id="myChart" height="200"></canvas>
@@ -57,33 +57,42 @@
           var myChart = new Chart(ctx, {
               type: 'line',
               data: {
-                labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
-                          "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+                labels: [{!! $data_bulan !!}],
                 datasets: [{
                   label: 'Buku Diunggah',
-                  data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                  data: [{!! $data_diunggah !!}],
                   backgroundColor: 'rgba(255, 99, 132, 0.2)',
                   borderColor: 'rgba(255,99,132,1)',
                   borderWidth: 1,
                 }, {
                   label: 'Buku Diunduh',
-                  data: [19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
+                  data: [{!! $data_diunduh !!}],
                   backgroundColor: 'rgba(54, 162, 235, 0.2)',
                   borderColor: 'rgba(54, 162, 235, 1)',
                   borderWidth: 1,
                 }, {
                   label: 'Buku Dilihat',
-                  data: [3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19],
+                  data: [{!! $data_dilihat !!}],
                   backgroundColor: 'rgba(255, 206, 86, 0.2)',
                   borderColor: 'rgba(255, 206, 86, 1)',
                   borderWidth: 1,
                 }]
               },
               options: {
+                  elements: {
+                    line: {
+                      tension: 0,
+                    }
+                  },
                   scales: {
                       yAxes: [{
                           ticks: {
-                              beginAtZero:true
+                              beginAtZero: true,
+                              userCallback: function(label, index, labels) {
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
+                              }
                           }
                       }]
                   }

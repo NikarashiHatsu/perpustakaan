@@ -50,7 +50,7 @@
         </li>
         <li class="list-group-item bg-dark d-flex justify-content-between align-items-center">
           Buku Diunduh
-          <span class="badge badge-pill badge-white">20x</span>
+          <span class="badge badge-pill badge-white">{{ \App\BookDownload::count() }}x</span>
         </li>
       </ul>
     </div>
@@ -80,29 +80,39 @@
                 labels: [{!! $data_bulan !!}],
                 datasets: [{
                   label: 'Buku Diunggah',
-                  data: [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3],
+                  data: [{!! $data_diunggah !!}],
                   backgroundColor: 'rgba(255, 99, 132, 0.2)',
                   borderColor: 'rgba(255,99,132,1)',
                   borderWidth: 1,
                 }, {
                   label: 'Buku Diunduh',
-                  data: [19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12],
+                  data: [{!! $data_diunduh !!}],
                   backgroundColor: 'rgba(54, 162, 235, 0.2)',
                   borderColor: 'rgba(54, 162, 235, 1)',
                   borderWidth: 1,
                 }, {
                   label: 'Buku Dilihat',
-                  data: [3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19],
+                  data: [{!! $data_dilihat !!}],
                   backgroundColor: 'rgba(255, 206, 86, 0.2)',
                   borderColor: 'rgba(255, 206, 86, 1)',
                   borderWidth: 1,
                 }]
               },
               options: {
+                  elements: {
+                    line: {
+                      tension: 0,
+                    }
+                  },
                   scales: {
                       yAxes: [{
                           ticks: {
-                              beginAtZero:true
+                              beginAtZero: true,
+                              userCallback: function(label, index, labels) {
+                                if (Math.floor(label) === label) {
+                                    return label;
+                                }
+                              }
                           }
                       }]
                   }

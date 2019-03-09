@@ -65,7 +65,7 @@
           <div class="card-body">
             <p class="mb-3">
               Apakah Anda yakin ingin mengubah <span id="counterEdit"></span> buku yang Anda pilih?
-              <b><i>Buku yang sudah diubah tidak bisa dikembalikan.</i></b>
+              <b><i>Buku yang sudah diubah tidak bisa dikembalikan. Aksi ini tidak mengubah statistik.</i></b>
             </p>
             <form id="formEditBuku">
               @csrf
@@ -96,7 +96,7 @@
           <div class="card-body">
             <p class="mb-3">
               Apakah Anda yakin ingin menghapus <span id="counterDelete"></span> buku yang Anda pilih?
-              <b><i>Buku yang sudah dihapus tidak bisa dikembalikan</i></b>
+              <b><i>Buku yang sudah dihapus tidak bisa dikembalikan. Aksi ini tidak mempengaruhi statistik.</i></b>
             </p>
             <form id="formHapusBuku">
               @csrf
