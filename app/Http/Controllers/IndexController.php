@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Index;
 use App\Book;
 use App\BookView;
+use App\BookDownload;
 
 class IndexController extends Controller
 {
@@ -42,5 +43,19 @@ class IndexController extends Controller
 
         $data['success'] = 1;
         return json_encode($data);
+    }
+    public function unduh_buku(Request $request) {
+        $book_download = new BookDownload;
+        $book_download->book_id = $request->id_buku;
+        $book_download->jurusan = $request->jurusan;
+        $book_download->save();
+        
+        $data['success'] = 1;
+        return json_encode($data);
+    }
+    public function unduh(Request $request) {
+        $book_download = Book::find($request->id);
+
+        return view('buku.unduh');
     }
 }

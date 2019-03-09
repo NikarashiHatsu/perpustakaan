@@ -14,8 +14,10 @@
 // Rute Index 
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/tentang', 'IndexController@tentang')->name('tentang');
+Route::post('/unduh', 'IndexController@unduh')->name('unduh_buku');
 Route::post('/tambah_view', 'IndexController@tambah_view')->name('tambah_view');
-Route::get('/home', function() {
+Route::post('/tambah_download', 'IndexController@unduh_buku')->name('tambah_download');
+    Route::get('/home', function() {
     return redirect('/');
 });
 

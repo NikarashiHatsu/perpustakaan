@@ -63,15 +63,53 @@
   </div>
   @if(isset(Auth::user()->name))
     <div class="card-footer">
-      <button class="btn btn-red btn-sm w-100" onclick="download({{ $buku->id }})">
-        <i class="fas fa-download mr-3"></i>
-        Unduh buku
-      </button>
+      <form id="download">
+        @csrf
+        @if(Auth::user()->jurusan == "" || Auth::user()->jurusan == NULL)
+          <input type="hidden" name="jurusan" value="anonymous" />
+        @else
+          <input type="hidden" name="jurusan" value="{{ Auth::user()->jurusan }}" />
+        @endif
+        
+        <input type="hidden" name="id_buku" value="{{ $buku->id }}" />
+        <button class="btn btn-red btn-sm w-100">
+          <i class="fas fa-download mr-3"></i>
+          Unduh buku
+        </a>
+      </form>
     </div>
+    <form method="post" action="{{ url('/unduh/') }}" id="realDownload">
+      @csrf
+      @if(Auth::user()->jurusan == "" || Auth::user()->jurusan == NULL)
+        <input type="hidden" name="jurusan" value="anonymous" />
+      @else
+        <input type="hidden" name="jurusan" value="{{ Auth::user()->jurusan }}" />
+      @endif
+      
+      <input type="hidden" name="id_buku" value="{{ $buku->id }}" />
+    </form>
     <script>
-      function download(id) {
-        // CHANGES NEEDED
-      }
+      $("#download").submit(function(e) {
+        e.preventDefault();
+        var data = $(this).serialize();
+
+        $.ajax({
+          url: "{{ url('/tambah_download/') }}",
+          type: 'post',
+          data: data,
+          dataType: 'json',
+          success: function(data) {
+            if(data['success'] == 1) {
+              $("#realDownload").submit();
+            } else {
+              alert("Ada kesalahan pada server.");
+            }
+          },
+          error: function(data) {
+            alert("Ada kesalahan pada server.");
+          }
+        });
+      });
     </script>
   @endif
 </div>
