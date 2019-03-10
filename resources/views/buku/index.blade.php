@@ -56,7 +56,7 @@
                 @endfor
               </p>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
-              <p class="mb-0 black-text">
+              <p class="mb-1 black-text">
                 <i class="fas fa-clock mr-3"></i>
                 <span id="time{{ $id }}" style="text-transform: capitalize;"></span>
                 @php($time = explode(',', str_replace(' ', ',', str_replace('-', ' ', str_replace(':', ' ', $buku->created_at)))))
@@ -66,6 +66,14 @@
                   moment.locale('id');
                   $("#time{{ $id }}").html(moment([{{ $time }}]).fromNow())
                 </script>
+              </p>
+              <p class="mb-1 black-text">
+                <i class="fas fa-eye mr-3"></i>
+                {{ count($buku->views) }}x dilihat
+              </p>
+              <p class="mb-0 black-text">
+                <i class="fas fa-download mr-3"></i>
+                {{ count($buku->downloads) }}x diunduh
               </p>
             </div>
           </small>

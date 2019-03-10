@@ -114,8 +114,8 @@ Route::group(['prefix' => 'daftar_buku'], function() {
 
 // Rute Kontributor
 Route::group(['prefix' => 'daftar_penulis'], function() {
-    Route::get('/', 'IndexController@daftar_penulis')->name('index_kontributor');
-    Route::get('/{id_kontributor}', 'KontributorController@detail_kontributor')->name('detail_kontributor');
+    Route::get('/', 'IndexController@daftar_penulis')->name('index_penulis');
+    Route::get('/{id_penulis}', 'KontributorController@detail_penulis')->name('detail_penulis');
 });
 
 Auth::routes([

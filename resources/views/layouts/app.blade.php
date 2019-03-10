@@ -85,17 +85,17 @@
               <div class="mb-5 flex-center">
                 @if($facebook->value != NULL)
                   <a class="fb-ic" href="https://facebook.com/{{ $facebook->value }}">
-                    <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    <i class="fab fa-facebook-f fa-lg white-text mx-md-4 mr-3 fa-2x"> </i>
                   </a>
                 @endif
                 @if($twitter->value != NULL)
                   <a class="tw-ic" href="https://twitter.com/{{ $twitter->value }}">
-                    <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    <i class="fab fa-twitter fa-lg white-text mx-md-4 mr-3 fa-2x"> </i>
                   </a>
                 @endif
                 @if($twitter->value != NULL)
                   <a class="ins-ic" href="https://instagram.com/{{ $twitter->value }}">
-                    <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                    <i class="fab fa-instagram fa-lg white-text mx-md-4 mr-3 fa-2x"> </i>
                   </a>
                 @endif
               </div>
