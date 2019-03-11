@@ -18,7 +18,7 @@ class KontributorController extends Controller
     {
         $penulis = User::find($id_penulis);
         
-        if($penulis->role == 1) {
+        if($penulis->role == 1 || $penulis->role == 2) {
             $unduh_akumulatif = 0;
             $lihat_akumulatif = 0;
             $tahun = getdate()['year'];
