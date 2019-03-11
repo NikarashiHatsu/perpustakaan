@@ -20,7 +20,7 @@
               <i class="fas fa-copy mr-3"></i>
               {{ $buku->page_count }} Halaman
             </p>
-            <p class="mb-1">
+            <p class="mb-1 categories-wrapper">
               <i class="fas fa-tags mr-3"></i>
               @php($subcategory_ids = explode(',', $buku->subcategory_ids))
               @forelse($subcategory_ids as $subcategory_id)
@@ -48,7 +48,7 @@
   @empty
   @endforelse
   <div class="col-sm-12 col-md-6 col-lg-3">
-    <div class="card bg-dark white-text text-center mb-3 additive" style="padding: 11.35rem 0;" data-toggle="modal" data-target="#tambahBuku">
+    <div class="card bg-dark white-text text-center mb-3 additive waves-effect" style="padding: 11.35rem 0;" data-toggle="modal" data-target="#tambahBuku">
       <div class="card-body">
         <i class="fas fa-plus fa-3x"></i>
       </div>
@@ -230,13 +230,13 @@
   <div class="col-sm-12 text-white">
     <div id="selectables" class="mb-3"></div>
     <div id="option" style="display: none;">
-      <button id="editor" class="btn elegant-color-dark white-text">
+      <button id="editor" class="btn elegant-color-dark white-text waves-effect">
         <i class="fas fa-pen"></i>
       </button>
-      <button id="deletor" class="btn elegant-color-dark white-text">
+      <button id="deletor" class="btn elegant-color-dark white-text waves-effect">
         <i class="fas fa-trash"></i>
       </button>
-      <button id="selectAll" class="btn elegant-color-dark white-text">
+      <button id="selectAll" class="btn elegant-color-dark white-text waves-effect">
         <i class="fas fa-check-square"></i>
       </button>
     </div>

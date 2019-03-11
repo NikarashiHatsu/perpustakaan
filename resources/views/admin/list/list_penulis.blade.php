@@ -37,7 +37,7 @@
   @empty
   @endforelse
   <div class="col-sm-12 col-md-6 col-lg-4">
-    <div class="card bg-dark white-text text-center mb-3 additive" style="padding: 1.95rem;" data-toggle="modal" data-target="#tambahPenulis">
+    <div class="card bg-dark white-text text-center mb-3 additive waves-effect" style="padding: 1.95rem;" data-toggle="modal" data-target="#tambahPenulis">
       <div class="card-body">
         <i class="fas fa-plus fa-3x"></i>
       </div>
@@ -217,13 +217,13 @@
   <div class="col-sm-12 text-white">
     <div id="selectables" class="mb-3"></div>
     <div id="option" style="display: none;">
-      <button id="editor" class="btn elegant-color-dark white-text">
+      <button id="editor" class="btn elegant-color-dark white-text waves-effect">
         <i class="fas fa-pen"></i>
       </button>
-      <button id="deletor" class="btn elegant-color-dark white-text">
+      <button id="deletor" class="btn elegant-color-dark white-text waves-effect">
         <i class="fas fa-trash"></i>
       </button>
-      <button id="selectAll" class="btn elegant-color-dark white-text">
+      <button id="selectAll" class="btn elegant-color-dark white-text waves-effect">
         <i class="fas fa-check-square"></i>
       </button>
     </div>

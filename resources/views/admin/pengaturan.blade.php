@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
-    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeIndex">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeIndex">
       <div class="card-body">
         <i class="fas fa-home fa-3x mt-3"></i>
         <h4 class="mt-3">Ubah Deskripsi Halaman Utama</h4>
@@ -10,7 +10,7 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
-    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeBook">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeBook">
       <div class="card-body">
         <i class="fas fa-book fa-3x mt-3"></i>
         <h4 class="mt-3">Ubah Deskripsi Halaman Daftar Buku</h4>
@@ -18,7 +18,7 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
-    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeWriter">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeWriter">
       <div class="card-body">
         <i class="fas fa-user fa-3x mt-3"></i>
         <h4 class="mt-3">Ubah Deskripsi Halaman Daftar Penulis</h4>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4 mb-lg-4 mb-4">
-    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeFooter">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeFooter">
       <div class="card-body">
         <i class="fas fa-info fa-3x mt-3"></i>
         <h4 class="mt-3">Ubah Informasi Footer</h4>
@@ -37,7 +37,7 @@
 <hr style="border-top: 1px solid rgba(255, 255, 255, 0.1);" class="mt-0" />
 <div class="row">
   <div class="col-sm-12 col-md-6 col-lg-4">
-    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangePassword">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangePassword">
       <div class="card-body">
         <i class="fas fa-lock fa-3x mt-3"></i>
         <h4 class="mt-3">Ubah Kata Sandi</h4>
@@ -45,7 +45,7 @@
     </div>
   </div>
   <div class="col-sm-12 col-md-6 col-lg-4">
-    <div class="card bg-dark white-text text-center clickable" data-toggle="modal" data-target="#modalChangeAccessCode">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeAccessCode">
       <div class="card-body">
         <i class="fas fa-id-card fa-3x mt-3"></i>
         <h4 class="mt-3">Ubah Kode Akses</h4>
