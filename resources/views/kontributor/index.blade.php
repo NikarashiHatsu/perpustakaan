@@ -24,7 +24,7 @@
                     <i style="font-size: 12.75rem;" class="fas fa-user-circle mb-3"></i>
                   </p>
                 @else
-                  <img src="{{ asset('/img/profile_pictures/male1.jpg') }}" alt="Profile Picture"  class="w-75 mx-auto d-block z-depth-1 rounded-circle mb-3">
+                  <img src="{{ asset('/img/profile_pictures/' . $penulis->profile_picture) }}" alt="Profile Picture"  class="w-75 mx-auto d-block z-depth-1 rounded-circle mb-3">
                 @endif
                 <h4 class="text-center">{{ $penulis->name }}</h4>
               </div>

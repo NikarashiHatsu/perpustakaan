@@ -30,7 +30,11 @@
         <div class="sidebar d-sm-none d-md-block d-lg-block elegant-color-dark">
           <div class="row">
             <div class="col-sm-12 white-text text-center pt-4">
-              <i class="fas fa-user-circle fa-3x"></i>
+              @if(isset(Auth::user()->profile_picture))
+                <img style="width: 4rem; border-radius: 100%;" class="z-depth-1" src="{{ asset('/img/profile_pictures/' . Auth::user()->profile_picture) }}" />
+              @else
+                <i class="fas fa-user-circle fa-4x"></i>
+              @endif
               <h5 class="mt-3 mb-2">{{ Auth::user()->name }}</h5>
             </div>
             <button class="navbar-toggler sidebar-toggler-hide white-text" type="button">
