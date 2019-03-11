@@ -43,7 +43,7 @@ class SubcategoriesTableSeeder extends Seeder
             'updated_at' => NOW(),
         ], [
             'category_id' => '2',
-            'subcategory_name' => 'otomatisasi_tata_kelola_perkantoran',
+            'subcategory_name' => 'otomatisasi_dan_tata_kelola_perkantoran',
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ], [

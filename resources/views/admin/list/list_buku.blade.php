@@ -20,7 +20,7 @@
               <i class="fas fa-copy mr-3"></i>
               {{ $buku->page_count }} Halaman
             </p>
-            <p class="mb-1">
+            <p class="mb-1 categories-wrapper">
               <i class="fas fa-tags mr-3"></i>
               @php($subcategory_ids = explode(',', $buku->subcategory_ids))
               @forelse($subcategory_ids as $subcategory_id)

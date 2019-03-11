@@ -23,7 +23,7 @@
               <option value="akuntansi_dan_keuangan_lembaga">Akuntansi dan Keuangan Lembaga</option>
               <option value="bisnis_daring_pemasaran">Bisnis Daring Pemasaran</option>
               <option value="multimedia">Multimedia</option>
-              <option value="otomatisasi_tata_kelola_perkantorans">Otomatisasi Tata Kelola Perkantoran</option>
+              <option value="otomatisasi_dan_tata_kelola_perkantoran">Otomatisasi dan Tata Kelola Perkantoran</option>
               <option value="perbankan_dan_keuangan_mikro">Perbankan dan Keuangan Mikro</option>
               <option value="usaha_perjalanan_wisata">Usaha Perjalanan Wisata</option>
             </select>

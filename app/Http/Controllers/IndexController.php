@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Index;
 use App\User;
 use App\Book;
@@ -27,7 +28,7 @@ class IndexController extends Controller
     public function daftar_penulis()
     {
         $content = Index::where('setting_for', 'daftar_penulis')->first();
-        $penulis = User::where('role', 1)->get();
+        $penulis = User::where('role', '!=', 0)->get();
 
         return view('kontributor.index', compact('content', 'penulis'));
     }
