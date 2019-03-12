@@ -53,7 +53,7 @@
           </div>
           <div class="card-body">
             <p class="mb-3">
-              Apakah Anda yakin ingin mengubah <span id="counterEdit"></span> akun siswa yang Anda pilih?
+              Apakah Anda yakin ingin mengubah <span id="counterGanti"></span> akun siswa yang Anda pilih?
               <b><i>Akun yang sudah diubah tidak bisa dikembalikan.</i></b>
             </p>
             <form id="formEditSiswa">
@@ -88,6 +88,38 @@
               <b><i>Akun yang sudah dihapus tidak bisa dikembalikan.</i></b>
             </p>
             <form id="formHapusSiswa">
+              @csrf
+              @method('DELETE')
+              <div class="input-group mb-2">
+                <input type="password" name="password_reconfirm" class="form-control" placeholder="Konfirmasi Kata Sandi Anda" />
+                <div class="input-group-append">
+                  <button class="btn btn-md btn-outline-white bg-white m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">
+                    Hapus Akun Siswa
+                  </button>
+                </div>
+              </div>
+              <span id="passwordReconfirmResponse"></span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="reassureLulus" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content" style="border-radius: 5px; -webkit-border-radius: 5px;">
+        <div class="card bg-danger white-text">
+          <div class="card-header">
+            <i class="fas fa-exclamation-triangle mr-3"></i>
+            Konfirmasi Kelulusan Siswa
+          </div>
+          <div class="card-body">
+            <p class="mb-3">
+              Akun siswa yang <b>diluluskan</b> akan diperlakukan sama akun yang akan <b>dihapus</b>.
+              Opsi ini hanya berlaku untuk akun dengan status <b>Kelas XII</b>.
+              <b>Apakah Anda yakin ingin menghapus <span id="counterLulus"></span> akun siswa yang Anda pilih?</b>
+            </p>
+            <form id="formLulus">
               @csrf
               @method('DELETE')
               <div class="input-group mb-2">
@@ -192,9 +224,12 @@
             <hr style="border-top: 1px solid rgba(0, 0, 0, 0.1) !important;" />
             <div class="row">
               <div class="col-sm-12">
-                Atau: 
-                <button class="btn btn-sm btn-blue" type="button" id="naikKelas">
+                Atau:
+                <button class="btn btn-sm btn-blue" {{ ($kelas == "XII" ? "disabled" : "") }} type="button" id="naikKelas">
                   Naik kelas
+                </button>
+                <button class="btn btn-sm btn-red" {{ ($kelas != "XII" ? "disabled" : "") }} type="button" id="lulus">
+                  Lulus
                 </button>
               </div>
             </div>
@@ -441,6 +476,34 @@
     $("#jurusanSelect").html(jurusanText);
     $("#rombelSelect").html("<option>" + rombel + "</option>");
     /**
+     * Naik kelas & lulus
+     */
+    $("#naikKelas").on('click', function() {
+      var kelasNow = "{{ $kelas }}";
+      var kelasUp;
+      switch (kelasNow) {
+        case "X":
+          kelasUp = "XI";
+          break;
+        case "XI":
+          kelasUp = "XII";
+          break;
+        default:
+          kelasUp = "";
+          break;
+      }
+
+      $("select[name*='ganti_kelas'] option[value='" + kelasUp + "']").attr('selected', true);
+      $("select[name*='ganti_jurusan'] option[value='" + jurusan + "']").attr('selected', true);
+      $("select[name*='ganti_rombel'] option[value='" + rombel + "']").attr('selected', true);
+    });
+    $("#lulus").on('click', function() {
+      $("#counterLulus").html(length);
+      $("#modalGanti").modal('hide');
+      $("#reassureLulus").modal('show');
+    });
+
+    /**
      * Random string generator
      */
     $("#tambahSiswa").on('shown.bs.modal', function() {
@@ -550,6 +613,38 @@
 
           if (data['success'] == 1) {
             $("#reassureDelete").modal('hide');
+            setTimeout(function() {
+              search();
+            }, 1000);
+          } else {
+            if (data['password_failure == 1']) {
+              alert("Ada kesalahan server.");
+            }
+          }
+        }
+      });
+    });
+
+    $("#formLulus").submit(function(e) {
+      e.preventDefault();
+
+      var data = $(this).serialize();
+          data += "&" + serial;
+      
+      $.ajax({
+        url: "{{ url('/admin/delete_siswa') }}",
+        data: data,
+        dataType: 'json',
+        type: 'post',
+        success: function(data) {
+          if (data['password_failure'] == 1) {
+            $("#passwordReconfirmResponse").html("Kata Sandi Salah");
+          } else {
+            $("#passwordReconfirmResponse").html("");
+          }
+
+          if (data['success'] == 1) {
+            $("#reassureLulus").modal('hide');
             setTimeout(function() {
               search();
             }, 1000);
@@ -673,6 +768,7 @@
 
     $("#exchanger").on('click', function() {
       $("#modalGanti").modal("show");
+      $("#counterChange").html(length);
     })
     /**
      * Hapus kartu yang dipilih

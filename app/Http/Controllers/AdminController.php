@@ -235,7 +235,7 @@ class AdminController extends Controller
         $siswa = User::where([['role', 0], ['kelas', $kelas], ['jurusan', $jurusan], ['rombel', $rombel]])->get();
         $count = count($siswa);
 
-        return view('admin.list.list_siswa', compact('siswa', 'count', 'class_info'));
+        return view('admin.list.list_siswa', compact('siswa', 'count', 'class_info', 'kelas'));
     }
     public function list_penulis() {
         $penulis = User::where('role', 1)->get();
