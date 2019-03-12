@@ -2,16 +2,6 @@
 @section('content')
 @php($count = count($buku))
 <div class="container-fluid elegant-color">
-  <div class="row purple-gradient py-4 white-text">
-    <div class="col-sm-12 col-lg-6 text-center" style="margin-top: 8rem;">
-      <i class="fas {{ $content->fa_icon }} fa-5x"></i>
-    </div>
-    <div class="col-sm-12 col-lg-6 py-5">
-      <h1>Buku</h1>
-      <hr />
-      <p style="text-align: justify;">{!! $content->content !!}</p>
-    </div>
-  </div>
   <div class="row pt-4">
     @php($id = 1)
     @forelse($buku as $buku)

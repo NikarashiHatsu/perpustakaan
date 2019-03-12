@@ -261,7 +261,7 @@
           var fd = new FormData($("#formTambahBuku")[0]);
           
           $.ajax({
-            url: '/penulis/thumbnail_creator',
+            url: "{{ url('/penulis/thumbnail_creator') }}",
             type: 'post',
             dataType: 'json',
             data: fd,
@@ -281,7 +281,7 @@
                   'img': data['thumbnail'],
                 }
                 $.ajax({
-                  url: '/penulis/deletor',
+                  url: "{{ url('/penulis/deletor') }}",
                   type: 'get',
                   data: req,
                 });
@@ -317,7 +317,7 @@
 
       if (passthru == 1) {
         $.ajax({
-          url: '/penulis/buku',
+          url: "{{ url('/penulis/buku') }}",
           type: 'post',
           dataType: 'json',
           data: data,
@@ -348,7 +348,7 @@
           data += "&" + serial;
       
       $.ajax({
-        url: '/penulis/delete_buku',
+        url: "{{ url('/penulis/delete_buku') }}",
         data: data,
         dataType: 'json',
         type: 'post',
@@ -382,7 +382,7 @@
           data += "&" + serialEdit;
 
       $.ajax({
-        url: '/penulis/update_buku',
+        url: "{{ url('/penulis/update_buku') }}",
         data: data,
         dataType: 'json',
         type: 'post',
@@ -484,7 +484,7 @@
       var data = serial;
 
       $.ajax({
-        url: '/penulis/edit_data_buku',
+        url: "{{ url('/penulis/edit_data_buku') }}",
         type: 'get',
         dataType: 'json',
         data: data,

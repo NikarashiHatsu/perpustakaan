@@ -10,7 +10,7 @@
 
   function load_buku() {
     $.ajax({
-      url: '/penulis/list_buku',
+      url: "{{ url('/penulis/list_buku') }}",
       type: 'get',
       dataType: 'html',
       success: function(data) {

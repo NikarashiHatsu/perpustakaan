@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminAuth
+class SiswaAuth
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class AdminAuth
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role == 2) {
+        if (Auth::user()->role == 0) {
             return $next($request);
         } else {
             abort(403);

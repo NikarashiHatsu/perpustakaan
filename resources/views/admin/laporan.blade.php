@@ -52,7 +52,6 @@
       <div class="card-body">
         <canvas id="chartLine" height="200"></canvas>
         <script>
-          // var dataBulan = '{!! $data_bulan !!}';
           var ctx = document.getElementById("chartLine").getContext('2d');
           var chartLine = new Chart(ctx, {
               type: 'line',

@@ -428,7 +428,7 @@
         $("#responseConfirmNewPassword").addClass("bg-success").removeClass("bg-danger").attr("title", "Oke");
       }
 
-      if(obj['new_password'].length < 4 && obj['confirm_new_password'] < 4) {
+      if(obj['new_password'].length > 4 && obj['confirm_new_password'].length > 4) {
         if(obj['new_password'] == obj['confirm_new_password']) {
           $("#responseNewPassword").addClass("bg-success").removeClass("bg-danger").attr("title", "Kata sandi sama");
           $("#responseConfirmNewPassword").addClass("bg-success").removeClass("bg-danger").attr("title", "Kata sandi sama");

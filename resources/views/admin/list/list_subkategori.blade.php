@@ -272,7 +272,7 @@
         var data = $(this).serialize();
 
         $.ajax({
-          url: '/admin/subkategori',
+          url: "{{ url('/admin/subkategori') }}",
           async: false,
           type: 'post',
           dataType: 'json',
@@ -300,7 +300,7 @@
           data += "&" + serial;
       
       $.ajax({
-        url: '/admin/delete_subkategori',
+        url: "{{ url('/admin/delete_subkategori') }}",
         data: data,
         dataType: 'json',
         type: 'post',
@@ -334,7 +334,7 @@
           data += "&" + serialEdit;
 
       $.ajax({
-        url: '/admin/update_subkategori',
+        url: "{{ url('/admin/update_subkategori') }}",
         data: data,
         dataType: 'json',
         type: 'post',
@@ -426,7 +426,7 @@
       var data = serial;
 
       $.ajax({
-        url: '/admin/edit_data_subkategori',
+        url: "{{ url('/admin/edit_data_subkategori') }}",
         type: 'get',
         dataType: 'json',
         data: data,

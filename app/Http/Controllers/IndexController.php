@@ -9,6 +9,7 @@ use App\User;
 use App\Book;
 use App\BookView;
 use App\BookDownload;
+use App\Subcategory;
 
 class IndexController extends Controller
 {
@@ -35,6 +36,13 @@ class IndexController extends Controller
     public function tentang()
     {
         return view('tentang');
+    }
+    public function kategori($nama_kategori)
+    {
+        $subkategori = Subcategory::where('subcategory_name', $nama_kategori)->first()->id;
+        $buku = Book::where('subcategory_ids', 'like', '%' . $subkategori . '%')->get();
+        
+        return view('buku.kategori', compact('buku'));
     }
 
     public function tambah_view(Request $request)

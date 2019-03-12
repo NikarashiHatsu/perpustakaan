@@ -81,7 +81,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'revalidate
 });
 
 // Rute penulis
-Route::group(['prefix' => 'penulis', 'middleware' => ['auth', 'revalidate']], function() {
+Route::group(['prefix' => 'penulis', 'middleware' => ['auth', 'penulis', 'revalidate']], function() {
     // View Tiap Halaman
     Route::get('/', 'PenulisController@index')->name('penulis_dashboard');
     Route::get('/buku', 'PenulisController@buku')->name('penulis_dashboard_buku');
@@ -103,6 +103,21 @@ Route::group(['prefix' => 'penulis', 'middleware' => ['auth', 'revalidate']], fu
     // MISC
     Route::put('/change_password', 'PenulisController@change_password')->name('penulis_change_password');
     Route::put('/change_access_code', 'PenulisController@change_access_code')->name('penulis_change_access_code');
+});
+
+// Rute siswa
+Route::group(['prefix' => 'siswa', 'middleware' => ['auth', 'siswa', 'revalidate']], function() {
+    // View Tiap Halaman
+    Route::get('/', 'SiswaController@index')->name('siswa_dashboard');
+    Route::get('/pengaturan', 'SiswaController@pengaturan')->name('siswa_dashboard_pengaturan');
+    // ========== CRUD ==========
+    // MISC
+    Route::put('/change_password', 'SiswaController@change_password')->name('siswa_change_password');
+});
+
+// Route Kategori
+Route::group(['prefix' => 'kategori'], function() {
+    Route::get('/{nama_kategori}', 'IndexController@kategori')->name('kategori');
 });
 
 // Rute Buku

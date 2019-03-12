@@ -105,6 +105,80 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="modalGanti" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content">
+        <form id="formGanti">
+          @csrf  
+          @method('PUT')
+          <div class="modal-header">
+            <h4 class="modal-title w-100">Edit Siswa (<span id="titleEditSiswa"></span>)</h4>
+            <button type="button" data-dismiss="modal" class="close">
+              <span>
+                <i class="fas fa-times"></i>
+              </span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <h5>Pindah dari kelas:</h5>
+                <select id="kelasSelect" disabled="disabled" class="form-control mb-3">
+                
+                </select>
+                <select id="jurusanSelect" disabled="disabled" class="form-control mb-3">
+                
+                </select>
+                <select id="rombelSelect" disabled="disabled" class="form-control">
+
+                </select>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                <h5>Ke kelas:</h5>
+                <select name="ganti_kelas" class="form-control mb-3" required="required">
+                  <option disabled hidden selected>--Pilih Kelas--</option>
+                  <option value="X">Kelas X</option>
+                  <option value="XI">Kelas XI</option>
+                  <option value="XII">Kelas XII</option>
+                </select>
+                <select name="ganti_jurusan" class="form-control mb-3" required="required">
+                  <option disabled hidden selected>--Pilih Jurusan--</option>
+                  <option value="akuntansi_dan_keuangan_lembaga">Akuntansi dan Keuangan Lembaga</option>
+                  <option value="bisnis_daring_pemasaran">Bisnis Daring Pemasaran</option>
+                  <option value="multimedia">Multimedia</option>
+                  <option value="otomatisasi_dan_tata_kelola_perkantoran">Otomatisasi dan Tata Kelola Perkantoran</option>
+                  <option value="perbankan_dan_keuangan_mikro">Perbankan dan Keuangan Mikro</option>
+                  <option value="usaha_perjalanan_wisata">Usaha Perjalanan Wisata</option>
+                </select>
+                <select name="ganti_rombel" class="form-control" required="required">
+                  <option disabled hidden selected>--Pilih Rombel--</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+            </div>
+            <hr style="border-top: 1px solid rgba(0, 0, 0, 0.1) !important;" />
+            <div class="row">
+              <div class="col-sm-12">
+                Atau: 
+                <button class="btn btn-sm btn-blue" type="button" id="naikKelas">
+                  Naik kelas
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-sm btn-green ml-auto" type="submit">
+              <i class="fas fa-save mr-3"></i>
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="modal fade" id="editSiswa" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
@@ -319,6 +393,7 @@
     var count = "{{ $count }}";
         classInfo = "{{ $class_info }}";
         kelas = $("select[name*='kelas']").val();
+        jurusanText = $("select[name*='jurusan'] option:selected")[0].outerHTML;
         jurusan = $("select[name*='jurusan']").val();
         rombel = $("select[name*='rombel']").val();
         $("input[name*='tambah_kelas']").val(kelas);
@@ -331,6 +406,9 @@
 
     $("#titleTambahSiswa").html(classInfo);
     $("#titleEditSiswa").html(classInfo);
+    $("#kelasSelect").html("<option>" + kelas + "</option>");
+    $("#jurusanSelect").html(jurusanText);
+    $("#rombelSelect").html("<option>" + rombel + "</option>");
     /**
      * Random string generator
      */
@@ -375,7 +453,7 @@
             'access_code': access_code,
           }
           $.ajax({
-            url: '/admin/checker/access_code',
+            url: "{{ url('/admin/checker/access_code') }}",
             async: false,
             type: 'get',
             dataType: 'json',
@@ -402,7 +480,7 @@
         var data = $(this).serialize();
 
         $.ajax({
-          url: '/admin/siswa',
+          url: "{{ url('/admin/siswa') }}",
           async: false,
           type: 'post',
           dataType: 'json',
@@ -430,7 +508,7 @@
           data += "&" + serial;
       
       $.ajax({
-        url: '/admin/delete_siswa',
+        url: "{{ url('/admin/delete_siswa') }}",
         data: data,
         dataType: 'json',
         type: 'post',
@@ -464,7 +542,7 @@
           data += "&" + serialEdit;
 
       $.ajax({
-        url: '/admin/update_siswa',
+        url: "{{ url('/admin/update_siswa') }}",
         data: data,
         dataType: 'json',
         type: 'post',
@@ -487,6 +565,11 @@
           }
         }
       });
+    });
+
+    $("#formGanti").submit(function(e) {
+      e.preventDefault();
+
     });
     
 
@@ -525,6 +608,9 @@
 
 
 
+    $("#exchanger").on('click', function() {
+      $("#modalGanti").modal("show");
+    })
     /**
      * Hapus kartu yang dipilih
      */
@@ -572,7 +658,7 @@
       var title = $("select[name*='kelas']").val() + " " + $("select[name*='jurusan']").val() + " " + $("select[name*='rombel']").val();
 
       $.ajax({
-        url: '/admin/edit_data_user',
+        url: "{{ url('/admin/edit_data_user') }}",
         type: 'get',
         dataType: 'json',
         data: data,

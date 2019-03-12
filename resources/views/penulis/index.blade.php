@@ -42,7 +42,7 @@
         Dashboard
       </div>
       <div class="card-body">
-        Selamat datang, NikarashiHatsu
+        Selamat datang, {{ Auth::user()->name }}
       </div>
     </div>
     <div class="card bg-dark white-text">
