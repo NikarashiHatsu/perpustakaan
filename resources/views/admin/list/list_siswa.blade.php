@@ -105,6 +105,36 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="reassureGanti" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content" style="border-radius: 5px; -webkit-border-radius: 5px;">
+        <div class="card bg-danger white-text">
+          <div class="card-header">
+            <i class="fas fa-exclamation-triangle mr-3"></i>
+            Konfirmasi Pemindahan Kelas
+          </div>
+          <div class="card-body">
+            <p class="mb-3">
+              Apakah Anda yakin ingin memindah <span id="counterChange"></span> akun siswa yang Anda pilih?
+            </p>
+            <form id="formPindahSiswa">
+              @csrf
+              @method('PUT')
+              <div class="input-group mb-2">
+                <input type="password" name="password_reconfirm" class="form-control" placeholder="Konfirmasi Kata Sandi Anda" />
+                <div class="input-group-append">
+                  <button class="btn btn-md btn-outline-white bg-white m-0 px-3 py-2 z-depth-0 waves-effect" type="submit">
+                    Pindah Akun Siswa
+                  </button>
+                </div>
+              </div>
+              <span id="passwordReconfirmResponse"></span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="modal fade" id="modalGanti" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
@@ -136,13 +166,13 @@
               <div class="col-sm-12 col-md-6">
                 <h5>Ke kelas:</h5>
                 <select name="ganti_kelas" class="form-control mb-3" required="required">
-                  <option disabled hidden selected>--Pilih Kelas--</option>
-                  <option value="X">Kelas X</option>
-                  <option value="XI">Kelas XI</option>
+                  <option value="" disabled hidden selected>--Pilih Kelas--</option>
                   <option value="XII">Kelas XII</option>
+                  <option value="XI">Kelas XI</option>
+                  <option value="X">Kelas X</option>
                 </select>
                 <select name="ganti_jurusan" class="form-control mb-3" required="required">
-                  <option disabled hidden selected>--Pilih Jurusan--</option>
+                  <option value="" disabled hidden selected>--Pilih Jurusan--</option>
                   <option value="akuntansi_dan_keuangan_lembaga">Akuntansi dan Keuangan Lembaga</option>
                   <option value="bisnis_daring_pemasaran">Bisnis Daring Pemasaran</option>
                   <option value="multimedia">Multimedia</option>
@@ -151,7 +181,7 @@
                   <option value="usaha_perjalanan_wisata">Usaha Perjalanan Wisata</option>
                 </select>
                 <select name="ganti_rombel" class="form-control" required="required">
-                  <option disabled hidden selected>--Pilih Rombel--</option>
+                  <option value="" disabled hidden selected>--Pilih Rombel--</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -392,6 +422,7 @@
   $().ready(function() {
     var count = "{{ $count }}";
         classInfo = "{{ $class_info }}";
+        kelasText = $("select[name*='kelas'] option:selected")[0].outerHTML;
         kelas = $("select[name*='kelas']").val();
         jurusanText = $("select[name*='jurusan'] option:selected")[0].outerHTML;
         jurusan = $("select[name*='jurusan']").val();
@@ -402,11 +433,11 @@
         $("input[name*='edit_kelas']").val(kelas);
         $("input[name*='edit_jurusan']").val(jurusan);
         $("input[name*='edit_rombel']").val(rombel);
-    var serial, serialEdit, length;
+    var serial, serialEdit, serialGanti, length;
 
     $("#titleTambahSiswa").html(classInfo);
     $("#titleEditSiswa").html(classInfo);
-    $("#kelasSelect").html("<option>" + kelas + "</option>");
+    $("#kelasSelect").html(kelasText);
     $("#jurusanSelect").html(jurusanText);
     $("#rombelSelect").html("<option>" + rombel + "</option>");
     /**
@@ -460,11 +491,9 @@
             data: ajaxData,
             success: function(data) {
               if (data['success'] == 1) {
-                // console.log("#accessCodeResponse_" + row);
                 $("#accessCodeResponse_" + row).children().removeClass('red').addClass('green white-text').removeAttr('data-toggle').removeAttr('title');
                 $("#accessCodeResponse_" + row).children().children().removeClass('fa-times fa-circle-notch').addClass('fa-check');
               } else {
-                // console.log("#accessCodeResponse_" + row);
                 passthru = 0;
                 $("#accessCodeResponse_" + row).children().removeClass('green').addClass('red white-text').attr('data-toggle', 'tooltip').attr('title', 'NIS (Kode Akses) sudah terpakai.');
                 $("#accessCodeResponse_" + row).children().children().removeClass('fa-check fa-circle-notch').addClass('fa-times');
@@ -538,8 +567,7 @@
     $("#formEditSiswa").submit(function(e) {
       e.preventDefault();
 
-      var data = $(this).serialize();
-          data += "&" + serialEdit;
+      var data = serialEdit;
 
       $.ajax({
         url: "{{ url('/admin/update_siswa') }}",
@@ -554,7 +582,38 @@
           }
 
           if (data['success'] == 1) {
-            $("#reassureEdit").modal('hide');
+            $("#reassureGanti").modal('hide');
+            setTimeout(function() {
+              search();
+            }, 1000);
+          } else {
+            if (data['password_failure == 1']) {
+              alert("Ada kesalahan server.");
+            }
+          }
+        }
+      });
+    });
+    $("#formPindahSiswa").submit(function(e) {
+      e.preventDefault();
+
+      var data = $(this).serialize();
+          data += "&" + serialGanti;
+
+      $.ajax({
+        url: "{{ url('/admin/update_siswa_ganti_kelas') }}",
+        type: 'post',
+        data: data,
+        dataType: 'json',
+        success: function(data) {
+          if (data['password_failure'] == 1) {
+            $("#passwordReconfirmResponse").html("Kata Sandi Salah");
+          } else {
+            $("#passwordReconfirmResponse").html("");
+          }
+
+          if (data['success'] == 1) {
+            $("#reassureGanti").modal('hide');
             setTimeout(function() {
               search();
             }, 1000);
@@ -570,6 +629,10 @@
     $("#formGanti").submit(function(e) {
       e.preventDefault();
 
+      serialGanti = $(this).serialize() + "&" + serial;
+
+      $("#reassureGanti").modal("show");
+      $("#modalGanti").modal("hide");
     });
     
 

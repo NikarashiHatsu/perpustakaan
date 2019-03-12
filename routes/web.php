@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'revalidate
     // UPDATE
     Route::put('/update_penulis', 'AdminController@update_penulis')->name('admin_update_penulis');
     Route::put('/update_siswa', 'AdminController@update_siswa')->name('admin_update_siswa');
+    Route::put('/update_siswa_ganti_kelas', 'AdminController@update_siswa_ganti_kelas')->name('admin_siswa_ganti_kelas');
     Route::put('/update_buku', 'AdminController@update_buku')->name('admin_update_buku');
     Route::put('/update_kategori', 'AdminController@update_kategori')->name('admin_update_kategori');
     Route::put('/update_subkategori', 'AdminController@update_subkategori')->name('admin_update_subkategori');

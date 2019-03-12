@@ -317,6 +317,30 @@ class AdminController extends Controller
             return json_encode($data);
         }
     }
+    public function update_siswa_ganti_kelas(Request $request) {
+
+        if (Hash::check($request->password_reconfirm, Auth::user()->password)) {
+            for($i = 1; $i <= $request->max; $i++) {
+                $string = "data_" . $i;
+
+                $user = User::find($request->$string);
+                $user->kelas = strtolower(str_replace(' ', '_', $request->ganti_kelas));
+                $user->jurusan = strtolower(str_replace(' ', '_', $request->ganti_jurusan));
+                $user->rombel = strtolower(str_replace(' ', '_', $request->ganti_rombel));
+                $user->update();
+            }
+
+            $data['password_failure'] = 0;
+            $data['success'] = 1;
+
+            return json_encode($data);  
+        } else {
+            $data['password_failure'] = 1;
+            $data['success'] = 0;
+
+            return json_encode($data);
+        }
+    }
     public function update_kategori(Request $request) {
         if (Hash::check($request->password_reconfirm, Auth::user()->password)) {
             for($i = 1; $i <= $request->max; $i++) {
