@@ -17,6 +17,76 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-12 col-md-6 col-lg-4">
+    <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeProfilePicture">
+      <div class="card-body">
+        <i class="fas fa-image fa-3x mt-3"></i>
+        <h4 class="mt-3">Ganti Foto Profil</h4>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modalChangeProfilePicture" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+      <div class="modal-content" style="border-radius: 5px; -webkit-border-radius: 5px;">
+        <div class="modal-header">
+          <h4 class="modal-title w-100">Ganti Foto Profil</h4>
+          <button type="button" data-dismiss="modal" class="close">
+            <span class="fas fa-times"></span>
+          </button>
+        </div>
+        <form id="formChangeProfilePicture" enctype="multipart/formdata">
+          @csrf
+          @method('PUT')
+          <div class="modal-body">
+            <div class="row px-3 mb-3">
+              <div class="col-sm-8 offset-sm-2" style="border: 5px dashed #BBB;" id="preview">
+                <h3 class="text-center my-5 py-5" style="color: #BBB !important;">Belum ada pratinjau</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="input-group mb-3">
+                  <div class="custom-file">
+                    <input type="file" name="upload" id="customFile" class="custom-file-input" required />
+                    <label for="customFile" class="custom-file-label" id="customFileLabel">Pilih foto</label>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                  </div>
+                  <input type="password" name="password_reconfirm" class="form-control" placeholder="Masukkan kata sandi" />
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-danger d-none" id="previewAlert">
+            
+            </div>
+            <hr class="mt-0" style="border-top: 1px solid rgba(0, 0, 0, 0.1) !important;" />
+            <div class="row">
+              <div class="col-sm-12">
+                <p class='mb-1'>Ketentuan:</p>
+                <ol class='pl-4 mb-0'>
+                  <li class='mb-1'>Foto berekstensi .jpeg</li>
+                  <li class="mb-1">Ukuran foto tidak melebihi 1mb</li>
+                  <li class="mb-1">Foto memiliki rasio 1:1</li>
+                  <li class="mb-1">Dimensi foto tidak melebihi 800x800</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-green btn-sm" type="submit" id="buttonChangeProfile" disabled>
+              <i class="fas fa-save mr-3"></i>
+              Simpan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
   <div class="modal fade" id="modalChangePassword" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content" style="border-radius: 5px; -webkit-border-radius: 5px;">
@@ -173,6 +243,112 @@
 </div>
 <script>
   $().ready(function() {
+    $("#customFile").on('change', function() {
+      var string = $(this).prop('files')[0];
+      
+      if(string == undefined) {
+        $("#buttonChangeProfile").attr("disabled", true);
+        $("#preview").html('<h3 class="text-center my-5 py-5" style="color: #BBB !important;">Belum ada pratinjau</h3>');
+        $("#customFileLabel").html("Pilih foto");
+        $("#previewAlert").addClass('d-none').removeClass('d-block').html("");
+      } else {
+        type = string['type'];
+        size = string['size'];
+        passes = 1;
+        response = "<ul class='mb-0 pl-3'>";
+        
+        // Cek 1
+        if (type != 'image/jpeg') {
+          passes = 0;
+          response += "<li>File bukan berekstensi .jpeg</li>";
+        }
+        // Cek 2
+        if (size > 1024000) {
+          passes = 0;
+          response += "<li>File tidak boleh melebihi 1mb.</li>";
+        }
+
+        if (passes == 1) {
+          var passes = 1;
+              response = "";
+          var image = new Image();
+              image.src = window.URL.createObjectURL(string);
+              image.onload = function() {
+                var width = this.width;
+                    height = this.height;
+                    ratioWidth = this.width / this.height;
+                    ratioHeight = this.height / this.width;
+                    if (ratioWidth > 0.9 && ratioWidth < 1.1) {
+                      ratioWidth = 1;
+                    }
+                    if (ratioHeight > 0.9 && ratioHeight < 1.1) {
+                      ratioHeight = 1;
+                    }
+                    ratio = ratioWidth + ":" + ratioHeight;
+                    
+                //===============================================================
+                if(ratio != "1:1") {
+                  passes = 0;
+                  response += "<li>Rasio foto harus 1:1</li>";
+                }
+                if(width > 800 || height > 800) {
+                  passes = 0;
+                  response += "<li>Panjang dan lebar foto harus kurang dari 800 pixel</li>";
+                }
+
+                if(passes == 0) {
+                  $("#buttonChangeProfile").attr("disabled", true);
+                  $("#previewAlert").addClass('d-block').removeClass('d-none').html(response);
+                  $("#preview").addClass('p-3');
+                } else {
+                  $("#buttonChangeProfile").removeAttr("disabled");
+                  $("#preview").html("<img class='w-100 z-depth-1' src='" + image.src + "' />");
+                  $("#preview").addClass('p-3');
+                  $("#previewAlert").addClass('d-none').removeClass('d-block');
+                  $("#customFileLabel").html(string['name']);
+                }
+              }
+        } else {
+          $("#buttonChangeProfile").attr("disabled", true);
+          $("#preview").html('<h3 class="text-center my-5 py-5" style="color: #BBB !important;">Belum ada pratinjau</h3>');
+          $("#customFileLabel").html("Pilih foto");
+          $("#previewAlert").addClass('d-block').removeClass('d-none').html(response);
+        }
+      }
+    });
+    $("#formChangeProfilePicture").submit(function(e) {
+      e.preventDefault();
+
+      var data = new FormData(this);
+
+      if($("#previewAlert")[0].className.search('d-none') > 1) {
+        $.ajax({
+          url: "{{ url('/penulis/foto_profil') }}",
+          type: 'post',
+          dataType: 'json',
+          data: data,
+          enctype: 'multipart/form-data',
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function(data) {
+            if (data['success'] == 1) {
+              $("#modalChangeProfilePicture").modal('hide');
+              setTimeout(function() {
+                location.reload();
+              }, 1000);
+            } else {
+              alert("Kata sandi salah.");
+            }
+          },
+          error: function(data) {
+            alert("Ada kesalahan pada server.");
+          }
+        });
+      } else {
+        alert("Pilih foto terlebih dahulu.");
+      }
+    });
     $("#formChangePassword").submit(function(e) {
       e.preventDefault();
 

@@ -711,6 +711,32 @@ class AdminController extends Controller
     /**
      * MISC
      */
+    public function foto_profil(Request $request) {
+        if (Hash::check($request->password_reconfirm, Auth::user()->password)) {
+            if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/profile_pictures/')) {
+                mkdir($_SERVER['DOCUMENT_ROOT'] . '/img/profile_pictures/', 0777);
+            }
+
+            $file = $request->file('upload');
+            $time = time();
+            $profile_picture = "profile_" . $time;
+            $profile_db = "profile_" . $time . '.' . $file->getClientOriginalExtension();
+            $move = $file->move($_SERVER['DOCUMENT_ROOT'] . '/img/profile_pictures/', $profile_picture . '.jpg');
+
+            $user = User::find(Auth::user()->id);
+            if($user->profile_picture != NULL) {
+                unlink($_SERVER['DOCUMENT_ROOT'] . "/img/profile_pictures/" . $user->profile_picture);
+            }
+            $user->profile_picture = $profile_db;
+            $user->update();
+
+            $data['success'] = 1;
+            return json_encode($data);
+        } else {
+            $data['success'] = 0;
+            return json_encode($data);
+        }
+    }
     public function thumbnail_creator(Request $request) {
         if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/')) {
             mkdir($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/', 0777);

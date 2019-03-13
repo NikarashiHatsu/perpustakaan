@@ -79,6 +79,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'revalidate
     // MISC
     Route::put('/change_password', 'AdminController@change_password')->name('admin_change_password');
     Route::put('/change_access_code', 'AdminController@change_access_code')->name('admin_change_access_code');
+    Route::put('/foto_profil', 'AdminController@foto_profil')->name('admin_change_foto_profil');
     Route::get('/pdfy', 'AdminController@pdfy')->name('admin_pdfy');
     Route::get('/xlsxy', 'AdminController@xlsxy')->name('admin_xlsxy');
 });
@@ -106,6 +107,7 @@ Route::group(['prefix' => 'penulis', 'middleware' => ['auth', 'penulis', 'revali
     // MISC
     Route::put('/change_password', 'PenulisController@change_password')->name('penulis_change_password');
     Route::put('/change_access_code', 'PenulisController@change_access_code')->name('penulis_change_access_code');
+    Route::put('/foto_profil', 'PenulisController@foto_profil')->name('penulis_ganti_foto_profil');
 });
 
 // Rute siswa
