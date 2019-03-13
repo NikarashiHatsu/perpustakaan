@@ -93,19 +93,10 @@
       Export ke PDF
     </button>
   </div>
-  <div class="col-sm-12 col-md-6 mb-3">
-    <button class="btn btn-green w-100 ml-0" onclick="xlsxy()">
-      <i class="fas fa-file mr-3"></i>
-      Export ke XLSX
-    </button>
-  </div>
 </div>
 <script>
   function pdfy() {
     window.location.href = "{{ url('/admin/pdfy') }}";
-  }
-  function xlsxy() {
-    window.location.href = "{{ url('/admin/xlsxy') }}";
   }
 </script>
 @endsection

@@ -944,7 +944,4 @@ class AdminController extends Controller
         $pdf::Output();
         exit;
     }
-    public function xlsxy() {
-        abort(503, "Halaman sedang dibangun.");
-    }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <div class="row">
-  <div class="col-sm-12 col-md-6">
+  <div class="col-sm-12 col-md-12 col-lg-8">
     <div class="card bg-dark white-text mb-3">
       <div class="card-header">
         <i class="fas fa-search mr-3"></i>
@@ -9,7 +9,7 @@
       </div>
       <div class="card-body pb-0">
         <div class="row">
-          <div class="col-sm-12 mb-sm-3 col-md-4">
+          <div class="col-sm-12 mb-3 col-md-4">
             <select name="kelas" class="form-control form-control-sm">
               <option value="" hidden disabled selected>--Pilih Kelas--</option>
               <option value="XII">Kelas XII</option>
@@ -17,7 +17,7 @@
               <option value="X">Kelas X</option>
             </select>
           </div>
-          <div class="col-sm-12 mb-sm-3 col-md-4">
+          <div class="col-sm-12 mb-3 col-md-4">
             <select name="jurusan" class="form-control form-control-sm">
               <option value="" hidden disabled selected>--Pilih Jurusan--</option>
               <option value="akuntansi_dan_keuangan_lembaga">Akuntansi dan Keuangan Lembaga</option>
@@ -28,7 +28,7 @@
               <option value="usaha_perjalanan_wisata">Usaha Perjalanan Wisata</option>
             </select>
           </div>
-          <div class="col-sm-12 mb-sm-3 col-md-4">
+          <div class="col-sm-12 mb-3 col-md-4">
             <select name="rombel" id="" class="form-control form-control-sm">
               <option value="" hidden disabled selected>--Pilih Rombongan Belajar--</option>
               <option value="1">1</option>
@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div id="alert" class="col-sm-12 col-md-6">
+  <div id="alert" class="col-sm-12 col-md-12 col-lg-4">
     <!-- Alert -->
   </div>
 </div>

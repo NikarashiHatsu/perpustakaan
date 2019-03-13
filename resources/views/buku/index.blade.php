@@ -2,7 +2,7 @@
 @section('content')
 @php($count = count($buku))
 <div class="container-fluid elegant-color">
-  <div class="row purple-gradient py-4 white-text">
+  <div class="row purple-gradient py-4" style="color: rgba(0, 0, 0, 0.77);">
     <div class="col-sm-12 col-lg-6 text-center" style="margin-top: 8rem;">
       <i class="fas {{ $content->fa_icon }} fa-5x"></i>
     </div>

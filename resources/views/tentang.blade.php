@@ -2,11 +2,11 @@
 @section('content')
 <div class="container-fluid elegant-color-dark white-text pt-5">
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-sm-12 col-lg-8">
       <h1 class="text-center">Tentang Sekolah</h1>
       <div class="row py-3">
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <img src="{{ asset('/img/about/kdwnew.png') }}" style="width: 100%; border-radius: 100%;" class="d-block ml-auto my-3 z-depth-1" alt="">          
+          <img src="{{ asset('/img/about/kdwnew.png') }}" style="width: 85%; border-radius: 100%;" class="d-block mx-auto my-3 z-depth-1" alt="">          
         </div>
         <div class="col-sm-12 col-md-6 col-lg-9">
           <p>SMK Negeri 1 Kedawung merupakan sekolah menengah kejuruan negeri yang berada di Kabupaten Cirebon, Jawa Barat, Indonesia.
@@ -18,12 +18,12 @@
     </div>
   </div>
   <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-sm-12 col-lg-8">
       <hr style="border-top: 1px solid rgba(255, 255, 255, 0.1);" />
       <h1 class="text-center mt-5">Tentang Pengembang</h1>
       <div class="row py-3">
         <div class="col-sm-12 col-md-6 col-lg-3">
-          <img src="{{ asset('/img/about/aghitsnidallah.jpg') }}" style="width: 100%; border-radius: 100%;" class="d-block ml-auto my-3 z-depth-1" alt="">
+          <img src="{{ asset('/img/about/aghitsnidallah.jpg') }}" style="width: 85%; border-radius: 100%;" class="d-block mx-auto my-3 z-depth-1" alt="">
         </div>
         <div class="col-sm-12 col-md-6 col-lg-9" style="text-align: justify;">
           <p>Hai, perkenalkan nama saya Aghits Nidallah. Saya lahir pada tanggal 16 Maret 2001 di Cirebon.

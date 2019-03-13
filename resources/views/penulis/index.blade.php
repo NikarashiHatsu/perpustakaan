@@ -45,7 +45,7 @@
         Selamat datang, {{ Auth::user()->name }}
       </div>
     </div>
-    <div class="card bg-dark white-text">
+    <div class="card bg-dark white-text mb-3">
       <div class="card-header">
         <i class="fas fa-chart-pie mr-3"></i>
         Statistik <i>{{ Auth::user()->name }}</i> Tahun {{ getdate()['year'] }}

@@ -796,7 +796,7 @@
     /**
      * Munculkan Alert
      */
-    $("#alert").html("<div class='card bg-dark white-text'>\
+    $("#alert").html("<div class='card bg-dark white-text mb-3'>\
                         <div class='card-header'>\
                           <i class='fas fa-exclamation-triangle mr-3'></i>\
                           Informasi\

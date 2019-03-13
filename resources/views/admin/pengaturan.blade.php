@@ -36,7 +36,7 @@
 </div>
 <hr style="border-top: 1px solid rgba(255, 255, 255, 0.1);" class="mt-0" />
 <div class="row">
-  <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
     <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangePassword">
       <div class="card-body">
         <i class="fas fa-lock fa-3x mt-3"></i>
@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
     <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeAccessCode">
       <div class="card-body">
         <i class="fas fa-id-card fa-3x mt-3"></i>
@@ -52,7 +52,7 @@
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-6 col-lg-4">
+  <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
     <div class="card bg-dark white-text text-center clickable waves-effect" data-toggle="modal" data-target="#modalChangeProfilePicture">
       <div class="card-body">
         <i class="fas fa-image fa-3x mt-3"></i>

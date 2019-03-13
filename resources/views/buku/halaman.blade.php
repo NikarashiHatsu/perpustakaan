@@ -1,7 +1,7 @@
 @extends('layouts.book')
 @section('per-page')
 <div class="row">
-  <div class="col-sm-8 offset-2">
+  <div class="col-sm-12 col-lg-8 offset-lg-2">
     <div class="card">
       <div class="card-header">
         <i class="fas fa-copy mr-3"></i>
@@ -10,7 +10,7 @@
       <div class="card-body">
         <div class="row mb-3">
           <div class="col">
-            <img class="card-image z-depth-1" style="height: 37.5rem !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_' . $halaman . '.jpg') }}" alt="">
+            <img class="card-image z-depth-1" style="width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_' . $halaman . '.jpg') }}" alt="">
           </div>
         </div>
         <div class="row">
