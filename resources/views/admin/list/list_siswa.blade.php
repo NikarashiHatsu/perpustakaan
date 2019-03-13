@@ -174,7 +174,7 @@
           @csrf  
           @method('PUT')
           <div class="modal-header">
-            <h4 class="modal-title w-100">Edit Siswa (<span id="titleEditSiswa"></span>)</h4>
+            <h4 class="modal-title w-100">Ganti Kelas (<span id="titleGantiSiswa"></span>)</h4>
             <button type="button" data-dismiss="modal" class="close">
               <span>
                 <i class="fas fa-times"></i>
@@ -469,9 +469,10 @@
         $("input[name*='edit_jurusan']").val(jurusan);
         $("input[name*='edit_rombel']").val(rombel);
     var serial, serialEdit, serialGanti, length;
-
+    
     $("#titleTambahSiswa").html(classInfo);
     $("#titleEditSiswa").html(classInfo);
+    $("#titleGantiSiswa").html(classInfo);
     $("#kelasSelect").html(kelasText);
     $("#jurusanSelect").html(jurusanText);
     $("#rombelSelect").html("<option>" + rombel + "</option>");
@@ -662,7 +663,8 @@
     $("#formEditSiswa").submit(function(e) {
       e.preventDefault();
 
-      var data = serialEdit;
+      var data = $(this).serialize();
+          data += "&" + serialEdit
 
       $.ajax({
         url: "{{ url('/admin/update_siswa') }}",
@@ -677,7 +679,7 @@
           }
 
           if (data['success'] == 1) {
-            $("#reassureGanti").modal('hide');
+            $("#reassureEdit").modal('hide');
             setTimeout(function() {
               search();
             }, 1000);

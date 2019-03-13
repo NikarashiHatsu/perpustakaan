@@ -79,6 +79,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin', 'revalidate
     // MISC
     Route::put('/change_password', 'AdminController@change_password')->name('admin_change_password');
     Route::put('/change_access_code', 'AdminController@change_access_code')->name('admin_change_access_code');
+    Route::get('/pdfy', 'AdminController@pdfy')->name('admin_pdfy');
+    Route::get('/xlsxy', 'AdminController@xlsxy')->name('admin_xlsxy');
 });
 
 // Rute penulis

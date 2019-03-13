@@ -13,6 +13,7 @@ use App\BookDownload;
 use App\Category;
 use App\Subcategory;
 use App\Index;
+use Fpdf;
 
 class AdminController extends Controller
 {
@@ -84,15 +85,49 @@ class AdminController extends Controller
     public function laporan() {
         $active = 'laporan';
         $bulan = getdate()['mon'];
+        $tahun = getdate()['year'];
         $define_bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
         $data_bulan = "";
+        $data_diunduh = "";
+        $data_dilihat = "";
+
+        $grafik_baca_akl = BookView::where('jurusan', 'akuntansi_dan_keuangan_lembaga')->count();
+        $grafik_baca_bdp = BookView::where('jurusan', 'bisnis_daring_pemasaran')->count();
+        $grafik_baca_mm = BookView::where('jurusan', 'multimedia')->count();
+        $grafik_baca_otkp = BookView::where('jurusan', 'otomatisasi_dan_tata_kelola_perkantoran')->count();
+        $grafik_baca_pkm = BookView::where('jurusan', 'perbankan_dan_keuangan_mikro')->count();
+        $grafik_baca_upw = BookView::where('jurusan', 'usaha_perjalanan_wisata')->count();
+        $grafik_baca_anonymous = BookView::where('jurusan', 'anonymous')->count();
+        $grafik_baca = $grafik_baca_akl . ", " . $grafik_baca_bdp . ", " . $grafik_baca_mm . ", " . $grafik_baca_otkp . ", " . $grafik_baca_pkm . ", " . $grafik_baca_upw . ", " . $grafik_baca_anonymous;
+
+        $grafik_unduh_akl = BookDownload::where('jurusan', 'akuntansi_dan_keuangan_lembaga')->count();
+        $grafik_unduh_bdp = BookDownload::where('jurusan', 'bisnis_daring_pemasaran')->count();
+        $grafik_unduh_mm = BookDownload::where('jurusan', 'multimedia')->count();
+        $grafik_unduh_otkp = BookDownload::where('jurusan', 'otomatisasi_dan_tata_kelola_perkantoran')->count();
+        $grafik_unduh_pkm = BookDownload::where('jurusan', 'perbankan_dan_keuangan_mikro')->count();
+        $grafik_unduh_upw = BookDownload::where('jurusan', 'usaha_perjalanan_wisata')->count();
+        $grafik_unduh = $grafik_unduh_akl . ", " . $grafik_unduh_bdp . ", " . $grafik_unduh_mm . ", " . $grafik_unduh_otkp . ", " . $grafik_unduh_pkm . ", " . $grafik_unduh_upw;
 
         for ($i = 1; $i <= $bulan; $i ++) {
             $data_bulan .= '"' . $define_bulan[$i - 1] . '"';
             $data_bulan .= ",";
         }
+        for ($i = 1; $i <= $bulan; $i++) {
+            if($i < 10) {
+                $i = "0" . $i;
+            }
+            $count = BookDownload::where('created_at', 'like', $tahun . '-' . $i . '%')->count();
+            $data_diunduh .= '"' . $count . '",';
+        }
+        for ($i = 1; $i <= $bulan; $i++) {
+            if($i < 10) {
+                $i = "0" . $i;
+            }
+            $count = BookView::where('created_at', 'like', $tahun . '-' . $i . '%')->count();
+            $data_dilihat .= '"' . $count . '",';
+        }
         
-        return view('admin.laporan', compact('active', 'data_bulan'));
+        return view('admin.laporan', compact('active', 'data_bulan', 'grafik_baca', 'grafik_unduh', 'data_diunduh', 'data_dilihat'));
     }
     public function pengaturan() {
         $active = 'pengaturan';
@@ -749,5 +784,141 @@ class AdminController extends Controller
             $data['password_response'] = "Kata Sandi salah";
             return json_encode($data);
         }
+    }
+    public function pdfy()
+    {
+        $array_bulan = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+        $define_bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+        $bulan = $define_bulan[getdate()['mon'] - 1];
+        $tahun = getdate()['year'];
+
+        $grafik_baca = array();
+        $grafik_baca['akuntansi_dan_keuangan_lembaga'] = BookView::where('jurusan', 'akuntansi_dan_keuangan_lembaga')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['bisnis_daring_pemasaran'] = BookView::where('jurusan', 'bisnis_daring_pemasaran')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['multimedia'] = BookView::where('jurusan', 'multimedia')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['otomatisasi_dan_tata_kelola_perkantoran'] = BookView::where('jurusan', 'otomatisasi_dan_tata_kelola_perkantoran')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['perbankan_dan_keuangan_mikro'] = BookView::where('jurusan', 'perbankan_dan_keuangan_mikro')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['usaha_perjalanan_wisata'] = BookView::where('jurusan', 'usaha_perjalanan_wisata')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['anonymous'] = BookView::where('jurusan', 'anonymous')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_baca['total'] = BookView::where('created_at', 'like', '%' . $tahun . '%')->count();
+
+        $grafik_unduh = array();
+        $grafik_unduh['akuntansi_dan_keuangan_lembaga'] = BookDownload::where('jurusan', 'akuntansi_dan_keuangan_lembaga')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_unduh['bisnis_daring_pemasaran'] = BookDownload::where('jurusan', 'bisnis_daring_pemasaran')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_unduh['multimedia'] = BookDownload::where('jurusan', 'multimedia')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_unduh['otomatisasi_dan_tata_kelola_perkantoran'] = BookDownload::where('jurusan', 'otomatisasi_dan_tata_kelola_perkantoran')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_unduh['perbankan_dan_keuangan_mikro'] = BookDownload::where('jurusan', 'perbankan_dan_keuangan_mikro')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_unduh['usaha_perjalanan_wisata'] = BookDownload::where('jurusan', 'usaha_perjalanan_wisata')->where('created_at', 'like', '%' . $tahun . '%')->count();
+        $grafik_unduh['total'] = BookDownload::where('created_at', 'like', '%' . $tahun . '%')->count();
+
+        $jurusan = Category::where('category_name', 'jurusan')->first()->subcategory;
+        $books = Book::all();
+
+        $pdf = new Fpdf('l', 'mm', 'A4');
+        $pdf::SetTitle("Laporan Tahun " . $tahun);
+        // Halaman 1
+        $pdf::AddPage();
+        $pdf::SetFont('Arial', 'B', 18);
+        $pdf::Cell(0, 6, "Laporan Tahun " . $tahun, 0, "", "C");
+        $pdf::SetFont('Arial', '', 8);
+        $pdf::Ln();
+        $pdf::Cell(0, 10, "Per-tanggal " . getdate()['mday'] . " " . $bulan . " " . $tahun, 0, "", "C");
+        $pdf::Ln();
+        $pdf::Ln();
+        
+        $pdf::SetFont('Arial', '', 11);
+        $pdf::Cell(0, 11, "Frekuensi Pembaca Tahun " . $tahun . " Berdasarkan Jurusan:");
+        $pdf::Ln();
+        $pdf::SetFont('Arial','B',12);
+        $pdf::Cell(100, 8, "Jurusan", 1, "", "C");
+        $pdf::Cell(43.5, 8, "#Buku Dibaca", 1, "", "C");
+        $pdf::Cell(43.5, 8, "#Buku Diunduh", 1, "", "C");
+        $pdf::SetFont('Arial','',11);
+        foreach($jurusan as $jurusan) {
+            $pdf::Ln();
+            $pdf::Cell(100, 8, ucwords(str_replace('_', ' ', $jurusan->subcategory_name)), 1, "", "L");
+            $pdf::Cell(43.5, 8, $grafik_baca[$jurusan->subcategory_name] . " buku", 1, "", "C");
+            $pdf::Cell(43.5, 8, $grafik_unduh[$jurusan->subcategory_name] . " buku", 1, "", "C");
+        }
+        $pdf::Ln();
+        $pdf::Cell(100, 8, "=====Anonim=====", 1, "", "C");
+        $pdf::Cell(43.5, 8, $grafik_baca['anonymous'] . " buku", 1, "", "C");
+        $pdf::Cell(43.5, 8, '-', 1, "", "C");
+        $pdf::Ln();
+        $pdf::Cell(100, 8, "=====Total=====", 1, "", "C");
+        $pdf::Cell(43.5, 8, $grafik_baca['total'] . " buku", 1, "", "C");
+        $pdf::Cell(43.5, 8, $grafik_unduh['total'] . " buku", 1, "", "C");
+        $pdf::Ln();
+        $pdf::Ln();
+
+        $pdf::SetFont('Arial', '', 11);
+        $pdf::Cell(0, 11, "Frekuensi Pembaca Tahun " . $tahun . " Secara Keseluruhan:");
+        $pdf::Ln();
+        $pdf::SetFont('Arial','B',12);
+        $pdf::Cell(100, 8, "Bulan", 1, "", "C");
+        $pdf::Cell(43.5, 8, "#Buku Dibaca", 1, "", "C");
+        $pdf::Cell(43.5, 8, "#Buku Diunduh", 1, "", "C");
+        $pdf::SetFont('Arial','',11);
+        foreach($array_bulan as $array_bulan) {
+            $pdf::Ln();
+            $pdf::Cell(100, 8, $define_bulan[$array_bulan - 1], 1, "", "C");
+            $moon = $array_bulan;
+            if ($moon < 10) {
+                $moon = '0' . $moon;
+            }
+
+            $pdf::Cell(43.5, 8, BookView::where('created_at', 'like', '%' . $tahun . '-' . $moon . '%')->count() . " buku", 1, "", "C");
+            $pdf::Cell(43.5, 8, BookDownload::where('created_at', 'like', '%' . $tahun . '-' . $moon . '%')->count() . ' buku', 1, "", "C");
+
+            if ($array_bulan == getdate()['mon']) { 
+                break;
+            }
+        }
+        $pdf::Ln();
+        $pdf::Cell(100, 8, "=====Total=====", 1, "", "C");
+        $pdf::Cell(43.5, 8, $grafik_baca['total'] . " buku", 1, "", "C");
+        $pdf::Cell(43.5, 8, $grafik_unduh['total'] . " buku", 1, "", "C");
+
+        // Halaman 2
+        $pdf::AddPage();
+        $pdf::SetFont('Arial', 'B', 18);
+        $pdf::Cell(0, 6, "Laporan Tahun " . $tahun, 0, "", "C");
+        $pdf::SetFont('Arial', '', 8);
+        $pdf::Ln();
+        $pdf::Cell(0, 10, "Per-tanggal " . getdate()['mday'] . " " . $bulan . " " . $tahun, 0, "", "C");
+        $pdf::Ln();
+        $pdf::Ln();
+        
+        $pdf::SetFont('Arial', '', 11);
+        $pdf::Cell(0, 11, "Daftar buku:");
+        $pdf::Ln();
+        $pdf::SetFont('Arial','B',12);
+        $pdf::Cell(50, 8, "Nama Buku", 1, "", "C");
+        $pdf::Cell(50, 8, "Penulis", 1, "", "C");
+        $pdf::Cell(40, 8, "Penerbit", 1, "", "C");
+        $pdf::Cell(23.5, 8, "#Dibaca", 1, "", "C");
+        $pdf::Cell(23.5, 8, "#Diunduh", 1, "", "C");
+        $pdf::SetFont('Arial','',11);
+        $counter = 1;
+        foreach($books as $book) {
+            $pdf::Ln();
+            $pdf::Cell(50, 8, $book->book_title, 1, "", "L");
+            $pdf::Cell(50, 8, $book->user->name, 1, "", "L");
+            $pdf::Cell(40, 8, $book->publisher, 1, "", "L");
+            $pdf::Cell(23.5, 8, BookView::where('book_id', $book->id)->where('created_at', 'like', '%' . $tahun . '%')->count() . "x", 1, "", "C");
+            $pdf::Cell(23.5, 8, BookDownload::where('book_id', $book->id)->where('created_at', 'like', '%' . $tahun . '%')->count() . "x", 1, "", "C");
+            if($counter > 25) {
+                $pdf::AddPage();
+                $counter = 1;
+            } else {
+                $counter++;
+            }
+        }
+
+        $pdf::Output();
+        exit;
+    }
+    public function xlsxy() {
+        abort(503, "Halaman sedang dibangun.");
     }
 }
