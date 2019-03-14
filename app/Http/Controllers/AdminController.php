@@ -228,10 +228,12 @@ class AdminController extends Controller
         $pdf = $file->move($_SERVER['DOCUMENT_ROOT'] . '/pdf/', $book_name . '.pdf');
         $subcat = "";
 
-        $img = new \Imagick($_SERVER['DOCUMENT_ROOT'] . '/pdf/' . $book_name . '.pdf');
-        $img->setImageFormat('jpg');
+        $img = new \Imagick();
+        $img->setResolution(100, 100);
+        $img->readImage($_SERVER['DOCUMENT_ROOT'] . '/pdf/' . $book_name . '.pdf');
+        $img->setImageFormat('png');
         $count = 1;
-
+        
         foreach($img as $page) {
             $page->writeImage($_SERVER['DOCUMENT_ROOT'] . '/img/book_page/' . $book_name . '_page_' . $count . '.jpg');
             $count++;

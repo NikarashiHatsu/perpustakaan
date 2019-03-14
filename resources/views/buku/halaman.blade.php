@@ -1,9 +1,13 @@
 @extends('layouts.book')
 @section('per-page')
 <div class="row">
-  <div class="col-sm-12 col-lg-8 offset-lg-2">
+  <div class="col-sm-12">
     <div class="card">
       <div class="card-header">
+        <a class="black-text" href="{{ url('/daftar_buku/' . $buku->id) }}">
+          <i class="fas fa-home"></i>
+        </a>
+        <span class="mx-3">|</span>
         <i class="fas fa-copy mr-3"></i>
         {{ $buku->book_title }} - {{ $halaman }} / {{ $buku->page_count }}
       </div>

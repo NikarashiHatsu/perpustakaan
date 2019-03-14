@@ -86,6 +86,9 @@
           dataType: 'html',
           success: function(data) {
             $("#listSiswa").html(data);
+          },
+          error: function(data) {
+            alert("Ada kesalahan pada server.");
           }
         });
       }

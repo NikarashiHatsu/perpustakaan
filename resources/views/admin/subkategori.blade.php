@@ -15,6 +15,9 @@
       dataType: 'html',
       success: function(data) {
         $("#listSubKategori").html(data);
+      },
+      error: function(data) {
+        alert("Ada kesalahan pada server.");
       }
     });
   }

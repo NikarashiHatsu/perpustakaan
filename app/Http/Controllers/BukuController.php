@@ -15,8 +15,11 @@ class BukuController extends Controller
     public function detail_buku($id)
     {
         $buku = Book::find($id);
-        
-        return view('buku.detail', compact('buku'));
+        if($buku == "" || $buku == NULL) {
+            abort(404, 'Buku yang Anda cari tidak ditemukan.');
+        } else {
+            return view('buku.detail', compact('buku'));
+        }
     }
     public function halaman_buku($id, $halaman)
     {

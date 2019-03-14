@@ -10,4 +10,13 @@ class BookView extends Model
     {
         return $this->hasMany('App\User', 'jurusan', 'jurusan');
     }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'book_id', 'jurusan',
+    ];
 }

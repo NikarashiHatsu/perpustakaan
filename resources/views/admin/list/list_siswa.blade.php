@@ -392,6 +392,9 @@
       dataType: 'html',
       success: function(data) {
         $("#listSiswa").html(data);
+      },
+      error: function(data) {
+        alert("Ada kesalahan pada server.");
       }
     });
   }
@@ -562,6 +565,9 @@
                 $("#accessCodeResponse_" + row).children().removeClass('green').addClass('red white-text').attr('data-toggle', 'tooltip').attr('title', 'NIS (Kode Akses) sudah terpakai.');
                 $("#accessCodeResponse_" + row).children().children().removeClass('fa-check fa-circle-notch').addClass('fa-times');
               }
+            },
+            error: function(data) {
+              alert("Ada kesalahan pada server.");
             }
           });
           passthru = passthru;
@@ -587,6 +593,9 @@
             } else {
               alert("Ada kesalahan server.");
             }
+          },
+          error: function(data) {
+            alert("Ada kesalahan pada server.");
           }
         });
       }
@@ -622,6 +631,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -654,6 +666,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -688,6 +703,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -719,6 +737,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -862,6 +883,9 @@
           build += "<input type='hidden' name='max' value='" + length + "' />";
           
           $("#editData").html(build);
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });

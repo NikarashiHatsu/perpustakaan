@@ -31,6 +31,9 @@
       dataType: 'html',
       success: function(data) {
         $("#listKategori").html(data);
+      },
+      error: function(data) {
+        alert("Ada kesalahan pada server.");
       }
     });
   }

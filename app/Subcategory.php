@@ -10,4 +10,13 @@ class Subcategory extends Model
     {
         return $this->belongsTo('App\Category');
     }
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'category_id', 'subcategory_name',
+    ];
 }

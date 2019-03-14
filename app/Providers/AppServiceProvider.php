@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (!extension_loaded('imagick')) {
-            abort(503, "Ekstensi 'Imagick' dibutuhkan.");
+            abort(503, "Ekstensi 'Imagick' dibutuhkan untuk menjalankan aplikasi ini.");
         }
         
         Schema::defaultStringLength(191);

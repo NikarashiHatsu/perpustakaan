@@ -215,7 +215,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-green btn-sm">
+            <button type="submit" class="btn btn-green btn-sm" id="saver" disabled>
               <i class="fas fa-save mr-3"></i>
               Simpan
             </button>
@@ -287,19 +287,23 @@
                 });
               }, 3000);
               passthru = 1;
+              $("#saver").removeAttr("disabled");
             },            
             error: function(data) {
               alert("Ada kesalahan pada server.");
               passthru = 0;
+              $("#saver").attr('disabled', true);
             }
           });
 
           passthru = passthru;
         } else {
+          $("#saver").attr('disabled', true);
           $("#customFileLabel").html("<span class='red-text'>File tidak boleh melebihi 2mb</span>")
           passthru = 0;
         }        
       } else {
+        $("#saver").attr('disabled', true);
         $("#customFileLabel").html("<span class='red-text'>File bukan PDF</span>")
         passthru = 0;
       }
@@ -310,10 +314,10 @@
      */
     $("#formTambahBuku").submit(function(e) {
       e.preventDefault();
-      passthru = 1;
 
       // Jika semua data telah divalidasi
       var data = new FormData(this);
+      $("#saver").attr("disabled", true).html("<i class='fa fa-upload mr-3'></i> Mengunggah");
 
       if (passthru == 1) {
         $.ajax({
@@ -334,6 +338,9 @@
             } else {
               alert("Ada kesalahan server.");
             }
+          },
+          error: function(data) {
+            alert("Ada kesalahan pada server.");
           }
         });
       }
@@ -369,6 +376,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -403,6 +413,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -561,6 +574,9 @@
           
           $("#editData").html(build);
           $(".selectpicker").selectpicker('refresh');
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });

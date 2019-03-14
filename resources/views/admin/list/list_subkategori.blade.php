@@ -286,6 +286,9 @@
             } else {
               alert("Ada kesalahan server.");
             }
+          },
+          error: function(data) {
+            alert("Ada kesalahan pada server.");
           }
         });
       }
@@ -321,6 +324,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -355,6 +361,9 @@
               alert("Ada kesalahan server.");
             }
           }
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
@@ -469,6 +478,9 @@
           
           $("#editData").html(build);
           $(".selectpicker").selectpicker('refresh');
+        },
+        error: function(data) {
+          alert("Ada kesalahan pada server.");
         }
       });
     });
