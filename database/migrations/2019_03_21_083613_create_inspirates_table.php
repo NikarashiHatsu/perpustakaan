@@ -16,6 +16,7 @@ class CreateInspiratesTable extends Migration
         Schema::create('inspirates', function (Blueprint $table) {
             $table->increments('id');
             $table->text('inspire');
+            $table->string('inspirator');
             $table->timestamps();
         });
     }
