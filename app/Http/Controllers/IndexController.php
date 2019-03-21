@@ -10,6 +10,7 @@ use App\Book;
 use App\BookView;
 use App\BookDownload;
 use App\Subcategory;
+use App\Inspirate;
 
 class IndexController extends Controller
 {
@@ -18,6 +19,7 @@ class IndexController extends Controller
         $content = Index::where('setting_for', 'index')->first();
         $content_buku = Index::where('setting_for', 'daftar_buku')->first();
         $content_penulis = Index::where('setting_for', 'daftar_penulis')->first();
+        $content_inspirasi = Inspirate::inRandomOrder()->first();
 
         $buku = Book::inRandomOrder()->take(6)->get();
         $penulis = User::where('role', '!=', 0)->get();
@@ -25,7 +27,7 @@ class IndexController extends Controller
         $count_buku = Book::all()->count();
         $count_penulis = User::where('role', '!=', 0)->count();
 
-        return view('index', compact('buku', 'penulis', 'count_buku', 'count_penulis', 'content', 'content_buku', 'content_penulis'));
+        return view('index', compact('buku', 'penulis', 'count_buku', 'count_penulis', 'content', 'content_buku', 'content_penulis', 'content_inspirasi'));
     }
     public function daftar_buku()
     {

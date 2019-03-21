@@ -13,9 +13,10 @@
   </div>
 </div>
 <div class="container-fluid elegant-color py-5 white-text">
-  <div class="row">
-    <div class="col-sm-12 text-center">
-      <h3 class="my-5">-Insert Random Quote Here-</h3>
+  <div class="row justify-content-center">
+    <div class="col-sm-12 col-md-8 col-lg-8 py-5 text-center">
+      <h4 class="mb-4" style="text-align: justify;">"{{ $content_inspirasi->inspire }}"</h4>
+      <h5 class="text-left"><i>--{{ $content_inspirasi->inspirator }}</i></h5>
     </div>
   </div>
 </div>
