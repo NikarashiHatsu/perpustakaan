@@ -40,7 +40,7 @@
                 <h6 class="truncate">{{ mb_strimwidth($buku->book_title, 0, 100, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
-              <a href="{{ url('/kontributor/nikarashihatsu') }}">
+              <a href="{{ url('/daftar_penulis/' . $buku->user->id) }}">
                 <p class="mb-1 black-text">
                   <i class="fas fa-user mr-3"></i>
                   <span class="badge badge-pills elegant-color">{{ $buku->user->name }}</span>
@@ -157,4 +157,37 @@
     </div>
   </div>
 </div>
+<form id="token">
+  @csrf
+  @if(isset(Auth::user()->name))
+    @if(Auth::user()->jurusan == "" || Auth::user()->jurusan == NULL)
+      <input type="hidden" name="jurusan" value="anonymous" />
+    @else
+      <input type="hidden" name="jurusan" value="{{ Auth::user()->jurusan }}" />
+    @endif
+  @else
+    <input type="hidden" name="jurusan" value="anonymous" />
+  @endif
+</form>
+<script>
+  function relink(id) {
+      var data = $("#token").serialize() + "&id_buku=" + id;
+      $.ajax({
+        url: "{{ url('/tambah_view') }}",
+        type: 'post',
+        dataType: 'json',  
+        data: data,
+        success: function(data) {
+          if(data['success'] == 1) {
+            window.location.href = "{{ url('/daftar_buku') }}" + "/" + id;
+          } else {
+            alert("Ada kesalahan dalam membuka buku.");
+          }
+        },
+        error: function(data) {
+          alert("Ada kesalahan dalam membuka buku.");
+        }
+      });
+    }
+</script>
 @endsection

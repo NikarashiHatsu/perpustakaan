@@ -24,7 +24,7 @@
                 <h6 class="truncate">{{ mb_strimwidth($buku->book_title, 0, 100, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
-              <a href="{{ url('/kontributor/nikarashihatsu') }}">
+              <a href="{{ url('/daftar_penulis/' . $buku->user->id) }}">
                 <p class="mb-1 black-text">
                   <i class="fas fa-user mr-3"></i>
                   <span class="badge badge-pills elegant-color">{{ $buku->user->name }}</span>

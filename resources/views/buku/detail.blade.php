@@ -13,7 +13,7 @@
       <div class="col-sm-8 mb-sm-3 mb-md-0">
         <h2 class="card-title">{{ $buku->book_title }}</h2>
         <hr />
-        <a href="{{ url('/kontributor/nikarashihatsu') }}">
+        <a href="{{ url('/daftar_penulis/' . $buku->user->id) }}">
           <p class="mb-1 black-text">
             <i class="fas fa-user mr-3"></i>
             <span class="badge badge-pills elegant-color">
@@ -35,7 +35,7 @@
           @php($subcategories = explode(',', $buku->subcategory_ids))
           @for($i = 0; $i < count($subcategories); $i++)
             @php($subcategory = App\Subcategory::find($subcategories[$i]))
-            <a href="{{ url('/kategori/' . $subcategory->category_name) }}">
+            <a href="{{ url('/kategori/' . $subcategory->subcategory_name) }}">
               <span class="badge badge-pills {{ $subcategory->category->color_scheme }}">{{ ucwords(str_replace('_', ' ', $subcategory->subcategory_name)) }}</span>
             </a>
           @endfor
