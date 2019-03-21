@@ -50,7 +50,8 @@
             <li class="mb-1"><a href="https://laravel.com" class="white-text">Laravel</a> V5.7</li>
             <li class="mb-1"><a href="https://mdbootstrap.com" class="white-text">Material Design Bootstrap</a> V4.0</li>
             <li class="mb-1"><a href="http://fontawesome.com" class="white-text">Font Awesome Free</a> V5.6.3</li>
-            <li class="mb-1"><a href="https://developer.snapappointments.com/bootstrap-select/" class="white-text">Bootstrap Select</a> V1.13.7</li>
+            <li class="mb-1"><a href="https://developer.snapappointments.com/bootstrap-select" class="white-text">Bootstrap Select</a> V1.13.7</li>
+            <li class="mb-1"><a href="https://ghostscript.com" class="white-text">Ghostscript</a> V9.26 di bawah lisensi GNU Affero General Public License</li>
             <li class="mb-1"><a href="https://imagemagick.org" class="white-text">Ekstensi PHP Imagick</a> V6.9.10-8</li>
             <li class="mb-1"><a href="https://fpdf.org" class="white-text">Ekstensi PHP Class FPDF</a></li>
             <li>Ikon dibuat oleh <a href="https://www.flaticon.com/authors/smalllikeart" class="white-text" title="smalllikeart">smalllikeart</a> dari <a href="https://www.flaticon.com/" class="white-text" title="Flaticon">www.flaticon.com</a> di bawah lisensi <a href="http://creativecommons.org/licenses/by/3.0/" class="white-text" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>

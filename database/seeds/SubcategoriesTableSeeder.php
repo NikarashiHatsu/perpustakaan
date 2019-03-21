@@ -13,17 +13,17 @@ class SubcategoriesTableSeeder extends Seeder
     {
         DB::table('subcategories')->insert([[
             'category_id' => '1',
-            'subcategory_name' => 'Kelas 10',
+            'subcategory_name' => 'kelas_10',
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ], [
             'category_id' => '1',
-            'subcategory_name' => 'Kelas 11',
+            'subcategory_name' => 'kelas_11',
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ], [
             'category_id' => '1',
-            'subcategory_name' => 'Kelas 12',
+            'subcategory_name' => 'kelas_12',
             'created_at' => NOW(),
             'updated_at' => NOW(),
         ], [

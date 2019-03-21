@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/addons/datatables.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/addons/datatables-select.min.css') }}" />
+  <link rel="icon" href="{{ asset('/books.png') }}" />
   <script src="{{ asset('/js/jquery-3.3.1.min.js') }}"></script>
   <script src="{{ asset('/js/Chart.min.js') }}"></script>
   <script src="{{ asset('/js/addons/datatables.min.js') }}"></script>
@@ -37,8 +38,7 @@
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item avatar dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            <div class="dropdown-menu dropdown-menu-leftright dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">
               <img width="25px" src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0" alt="avatar image">
             </a>
             <div class="dropdown-menu dropdown-menu-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">

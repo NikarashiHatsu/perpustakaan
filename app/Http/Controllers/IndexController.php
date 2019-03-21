@@ -16,13 +16,21 @@ class IndexController extends Controller
     public function index()
     {   
         $content = Index::where('setting_for', 'index')->first();
+        $content_buku = Index::where('setting_for', 'daftar_buku')->first();
+        $content_penulis = Index::where('setting_for', 'daftar_penulis')->first();
 
-        return view('index', compact('content'));
+        $buku = Book::inRandomOrder()->take(6)->get();
+        $penulis = User::where('role', '!=', 0)->get();
+
+        $count_buku = Book::all()->count();
+        $count_penulis = User::where('role', '!=', 0)->count();
+
+        return view('index', compact('buku', 'penulis', 'count_buku', 'count_penulis', 'content', 'content_buku', 'content_penulis'));
     }
     public function daftar_buku()
     {
         $content = Index::where('setting_for', 'daftar_buku')->first();
-        $buku = Book::all();
+        $buku = Book::orderBy('id', 'DESC')->get();
         
         return view('buku.index', compact('content', 'buku'));
     }
@@ -39,10 +47,14 @@ class IndexController extends Controller
     }
     public function kategori($nama_kategori)
     {
-        $subkategori = Subcategory::where('subcategory_name', $nama_kategori)->first()->id;
-        $buku = Book::where('subcategory_ids', 'like', '%' . $subkategori . '%')->get();
+        if($subkategori = Subcategory::where('subcategory_name', $nama_kategori)->first()) {
+            $subkategori = $subkategori->id;
+        } else {
+            abort(404, 'Kategori yang Anda cari tidak ditemukan');
+        }
+        $buku = Book::orderBy('id', 'DESC')->where('subcategory_ids', 'like', '%' . $subkategori . '%')->get();
         
-        return view('buku.kategori', compact('buku'));
+        return view('buku.kategori', compact('buku', 'nama_kategori'));
     }
 
     public function tambah_view(Request $request)

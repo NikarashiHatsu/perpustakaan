@@ -1,2 +1,7 @@
 php_value post_max_size 8M
 php_value upload_max_filesize 8M
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>

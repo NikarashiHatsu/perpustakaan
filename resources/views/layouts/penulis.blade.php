@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="{{ asset('/css/addons/datatables.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/addons/datatables-select.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
+  <link rel="icon" href="{{ asset('/books.png') }}" />
   <script src="{{ asset('/js/jquery-3.3.1.min.js') }}"></script>
   <script src="{{ asset('/js/popper.min.js') }}"></script>
   <script src="{{ asset('/js/bootstrap.min.js') }}"></script>

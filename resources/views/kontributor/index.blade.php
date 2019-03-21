@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('content')
 <div class="container-fluid elegant-color">
-  <div class="row blue-gradient py-4" style="color: rgba(255, 255, 255, 1);">
-    <div class="col-sm-12 col-lg-6 text-center" style="margin-top: 8rem;">
-      <i class="fas {{ $content->fa_icon }} fa-5x"></i>
+  <div class="row purple-gradient py-4 white-text">
+    <div class="col-sm-12 col-lg-6 text-center my-4 my-lg-5">
+      <i class="fas {{ $content->fa_icon }} fa-5x mt-lg-5 pt-lg-3"></i>
     </div>
-    <div class="col-sm-12 col-lg-6 py-5">
+    <div class="col-sm-12 col-lg-6 py-sm-0 py-lg-5">
       <h1>Penulis</h1>
       <hr />
-      <p style="text-align: justify;">{!! $content->content !!}</p>
+      <p style="text-align: justify;">{!! nl2br($content->content) !!}</p>
     </div>
   </div>
   <div class="row pt-4">
@@ -26,7 +26,7 @@
                 @else
                   <img src="{{ asset('/img/profile_pictures/' . $penulis->profile_picture) }}" alt="Profile Picture"  class="w-75 mx-auto d-block z-depth-1 rounded-circle mb-3">
                 @endif
-                <h4 class="text-center">{{ $penulis->name }}</h4>
+                <h4 class="text-center truncate">{{ $penulis->name }}</h4>
               </div>
               <div class="card-footer">
                 <p class="mb-1">

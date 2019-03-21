@@ -2,14 +2,14 @@
 @section('content')
 @php($count = count($buku))
 <div class="container-fluid elegant-color">
-  <div class="row purple-gradient py-4" style="color: rgba(255, 255, 255, 1);">
-    <div class="col-sm-12 col-lg-6 text-center" style="margin-top: 8rem;">
-      <i class="fas {{ $content->fa_icon }} fa-5x"></i>
+  <div class="row purple-gradient py-4 white-text">
+    <div class="col-sm-12 col-lg-6 text-center my-4 my-lg-5">
+      <i class="fas {{ $content->fa_icon }} fa-5x mt-lg-5 pt-lg-3"></i>
     </div>
-    <div class="col-sm-12 col-lg-6 py-5">
+    <div class="col-sm-12 col-lg-6 py-sm-0 py-lg-5">
       <h1>Buku</h1>
       <hr />
-      <p style="text-align: justify;">{!! $content->content !!}</p>
+      <p style="text-align: justify;">{!! nl2br($content->content) !!}</p>
     </div>
   </div>
   <div class="row pt-4">
@@ -18,10 +18,10 @@
       <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2">
         <div class="card mb-4">
           <small>
-            <img class="card-image-thumbnail" style="height: 100% !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
+            <img class="card-image-thumbnail" style="width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
             <div class="card-body">
               <a onclick="relink({!! $buku->id !!})" class='black-text'>
-                <h6>{{ mb_strimwidth($buku->book_title, 0, 18, '...') }}</h6>
+                <h6 class="truncate">{{ mb_strimwidth($buku->book_title, 0, 100, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
               <a href="{{ url('/kontributor/nikarashihatsu') }}">
@@ -74,32 +74,15 @@
       </div>
       @php($id++)
     @empty
-      <div class="col-12 white-text p-5">
-        <table class="d-block mx-auto" style="width: max-content;">
-          <tbody>
-            <tr>
-              <td>
-                <h4>
-                  <i class="far fa-sad-tear fa-5x mr-5"></i>
-                </h4>
-              </td>
-              <td>
-                <h4>
-                  Belum ada buku yang diunggah
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-12 white-text p-5 text-center">
+        <h4 class="mb-5">
+          <i class="far fa-sad-tear fa-4x"></i>
+        </h4>
+        <h4>
+          Belum ada buku yang diunggah
+        </h4>
       </div>
     @endforelse
-    <div class="col-sm-12">
-      @if($count > 6)
-        <h6 class="text-right mb-3">
-          <a href="{{ url('/buku') }}" class="white-text">Lihat selengkapnya</a>
-        </h6>
-      @endif
-    </div>
   </div>
 </div>
 <form id="token">

@@ -47,10 +47,10 @@
       <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2 pt-4">
         <div class="card mb-4">
           <small>
-            <img class="card-image-thumbnail" style="height: 100% !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
+            <img class="card-image-thumbnail" style="width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
             <div class="card-body">
               <a onclick="relink({!! $buku->id !!})" class='black-text'>
-                <h6>{{ mb_strimwidth($buku->book_title, 0, 18, '...') }}</h6>
+                <h6 class="truncate">{{ mb_strimwidth($buku->book_title, 0, 100, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
               <a href="{{ url('/kontributor/nikarashihatsu') }}">
@@ -78,7 +78,7 @@
                 @endfor
               </p>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
-              <p class="mb-1 black-text">
+              <p class="mb-0 black-text">
                 <i class="fas fa-clock mr-3"></i>
                 <span id="time{{ $id }}" style="text-transform: capitalize;"></span>
                 @php($time = explode(',', str_replace(' ', ',', str_replace('-', ' ', str_replace(':', ' ', $buku->created_at)))))
@@ -89,37 +89,19 @@
                   $("#time{{ $id }}").html(moment([{{ $time }}]).fromNow())
                 </script>
               </p>
-              <p class="mb-1 black-text">
-                <i class="fas fa-eye mr-3"></i>
-                {{ count($buku->views) }}x dilihat
-              </p>
-              <p class="mb-0 black-text">
-                <i class="fas fa-download mr-3"></i>
-                {{ count($buku->downloads) }}x diunduh
-              </p>
             </div>
           </small>
         </div>
       </div>
       @php($id++)
     @empty
-      <div class="col-12 white-text p-5">
-        <table class="d-block mx-auto" style="width: max-content;">
-          <tbody>
-            <tr>
-              <td>
-                <h4>
-                  <i class="far fa-sad-tear fa-5x mr-5"></i>
-                </h4>
-              </td>
-              <td>
-                <h4>
-                  Belum ada buku yang diunggah
-                </h4>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="col-12 white-text p-5 text-center">
+        <h4 class="mb-5">
+          <i class="far fa-sad-tear fa-5x"></i>
+        </h4>
+        <h4>
+          Belum ada buku yang diunggah
+        </h4>
       </div>
     @endforelse
   </div>

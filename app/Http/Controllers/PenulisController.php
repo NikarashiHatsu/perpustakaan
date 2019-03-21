@@ -93,25 +93,26 @@ class PenulisController extends Controller
      * Store (CREATE)
      */
     public function store_buku(Request $request) {
-        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/pdf/')) {
-            mkdir($_SERVER['DOCUMENT_ROOT'] . '/pdf/', 0777);
+        ini_set('max_execution_time', 0);
+        if(!file_exists(public_path() . '/pdf/')) {
+            mkdir(public_path() . '/pdf/', 0777);
         }
-        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/book_page/')) {
-            mkdir($_SERVER['DOCUMENT_ROOT'] . '/img/book_page/', 0777);
+        if(!file_exists(public_path() . '/img/book_page/')) {
+            mkdir(public_path() . '/img/book_page/', 0777);
         }
 
         $file = $request->file('upload');
         $time = time();
         $book_name = "book_" . $time;
-        $pdf = $file->move($_SERVER['DOCUMENT_ROOT'] . '/pdf/', $book_name . '.pdf');
+        $pdf = $file->move(public_path() . '/pdf/', $book_name . '.pdf');
         $subcat = "";
 
-        $img = new \Imagick($_SERVER['DOCUMENT_ROOT'] . '/pdf/' . $book_name . '.pdf');
+        $img = new \Imagick(public_path() . '/pdf/' . $book_name . '.pdf');
         $img->setImageFormat('jpg');
         $count = 1;
 
         foreach($img as $page) {
-            $page->writeImage($_SERVER['DOCUMENT_ROOT'] . '/img/book_page/' . $book_name . '_page_' . $count . '.jpg');
+            $page->writeImage(public_path() . '/img/book_page/' . $book_name . '_page_' . $count . '.jpg');
             $count++;
         }
 
@@ -196,9 +197,9 @@ class PenulisController extends Controller
             for($i = 1; $i <= $request->max; $i++) {
                 $string = "data_" . $i;
                 $book = Book::find($request->$string);
-                unlink($_SERVER['DOCUMENT_ROOT'] . "/pdf/" . $book->book_name . '.pdf');
+                unlink(public_path() . "/pdf/" . $book->book_name . '.pdf');
                 for($j = 1; $j <= $book->page_count; $j++) {
-                    unlink($_SERVER['DOCUMENT_ROOT'] . "/img/book_page/" . $book->book_name . "_page_" . $j . ".jpg");
+                    unlink(public_path() . "/img/book_page/" . $book->book_name . "_page_" . $j . ".jpg");
                 }
                 $book->delete();
             }
@@ -244,19 +245,19 @@ class PenulisController extends Controller
      */
     public function foto_profil(Request $request) {
         if (Hash::check($request->password_reconfirm, Auth::user()->password)) {
-            if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/img/profile_pictures/')) {
-                mkdir($_SERVER['DOCUMENT_ROOT'] . '/img/profile_pictures/', 0777);
+            if(!file_exists(public_path() . '/img/profile_pictures/')) {
+                mkdir(public_path() . '/img/profile_pictures/', 0777);
             }
 
             $file = $request->file('upload');
             $time = time();
             $profile_picture = "profile_" . $time;
             $profile_db = "profile_" . $time . '.' . $file->getClientOriginalExtension();
-            $move = $file->move($_SERVER['DOCUMENT_ROOT'] . '/img/profile_pictures/', $profile_picture . '.jpg');
+            $move = $file->move(public_path() . '/img/profile_pictures/', $profile_picture . '.jpg');
 
             $user = User::find(Auth::user()->id);
             if($user->profile_picture != NULL) {
-                unlink($_SERVER['DOCUMENT_ROOT'] . "/img/profile_pictures/" . $user->profile_picture);
+                unlink(public_path() . "/img/profile_pictures/" . $user->profile_picture);
             }
             $user->profile_picture = $profile_db;
             $user->update();
@@ -269,21 +270,30 @@ class PenulisController extends Controller
         }
     }
     public function thumbnail_creator(Request $request) {
-        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/')) {
-            mkdir($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/', 0777);
+        ini_set('max_execution_time', 0);
+        if(!file_exists(public_path() . '/temp_pdf/')) {
+            mkdir(public_path() . '/temp_pdf/', 0777);
         }
-        if(!file_exists($_SERVER['DOCUMENT_ROOT'] . '/temp_img/')) {
-            mkdir($_SERVER['DOCUMENT_ROOT'] . '/temp_img/', 0777);
+        if(!file_exists(public_path() . '/temp_img/')) {
+            mkdir(public_path() . '/temp_img/', 0777);
         }
 
         $file = $request->file('upload');
         $pdf_name = "eLib-" . time() . '.pdf';
         $thumbnail_name = "eLib-" . time() . '.jpg';
-        $file->move($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/', $pdf_name);
+        $file->move(public_path() . '/temp_pdf/', $pdf_name);
         
-        $img = new \Imagick($_SERVER['DOCUMENT_ROOT'] . '/temp_pdf/' . $pdf_name . '[0]');
-        $img->setImageFormat('jpg');
-        $img->writeImage($_SERVER['DOCUMENT_ROOT'] . '/temp_img/' . $thumbnail_name);
+        $img = new \Imagick(public_path() . '/temp_pdf/' . $pdf_name);
+        $img->setResolution(200, 200);
+        $img->setImageFormat('png');
+        $i = 1;
+
+        foreach($img as $img) {
+            $img->writeImage(public_path() . '/temp_img/' . $thumbnail_name);
+            if($i == 1) {
+                break;
+            }
+        }
 
         $data['success'] = 1;
         $data['nama_asli'] = $file->getClientOriginalName();
@@ -295,8 +305,8 @@ class PenulisController extends Controller
         $pdf = $request->pdf;
         $img = $request->img;
 
-        unlink($_SERVER['DOCUMENT_ROOT'] . "/temp_pdf/" . $pdf);
-        unlink($_SERVER['DOCUMENT_ROOT'] . "/temp_img/" . $img);
+        unlink(public_path() . "/temp_pdf/" . $pdf);
+        unlink(public_path() . "/temp_img/" . $img);
     }
     public function change_password(Request $request) {
         if (Hash::check($request->old_password, Auth::user()->password)) {

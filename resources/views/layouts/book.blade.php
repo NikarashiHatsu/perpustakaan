@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{ asset('/css/style.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/addons/datatables.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('/css/addons/datatables-select.min.css') }}" />
+  <link rel="icon" href="{{ asset('/books.png') }}" />
   <script src="{{ asset('/js/jquery-3.3.1.min.js') }}"></script>
   <script src="{{ asset('/js/Chart.min.js') }}"></script>
   <script src="{{ asset('/js/addons/datatables.min.js') }}"></script>
@@ -38,8 +39,7 @@
         </ul>
         <ul class="navbar-nav ml-auto nav-flex-icons">
           <li class="nav-item avatar dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            <div class="dropdown-menu dropdown-menu-leftright dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-55">
               @guest
                 <i class="fas fa-user-circle"></i>
               @else

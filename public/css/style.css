@@ -21,6 +21,7 @@
   background-color: #DDD;
 }
 .categories-wrapper {
+  height: 40px;
   max-height: 40px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -111,8 +112,8 @@ button.btn-light:not([disabled]):not(.disabled).active, button.btn-light:not([di
   background-color: #EEE !important;
 }
 .card-image-thumbnail {
-  height: 200px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  height: 275px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   background-repeat: no-repeat;
   background-position: 50% 0%;
   background-size: contain;
@@ -128,8 +129,17 @@ button.btn-light:not([disabled]):not(.disabled).active, button.btn-light:not([di
 .sidebar-toggler-hide {
   display: none;
 }
+.truncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 @media screen and (max-width: 991px) {
+  .card-image-thumbnail {
+    height: auto !important;
+  }
   .sidebar-toggler-hide {
     display: block;
     position: absolute;

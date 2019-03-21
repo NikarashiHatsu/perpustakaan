@@ -48,7 +48,7 @@
   @empty
   @endforelse
   <div class="col-sm-12 col-md-6 col-lg-3">
-    <div class="card bg-dark white-text text-center mb-3 additive waves-effect" style="padding: 11.35rem 0;" data-toggle="modal" data-target="#tambahBuku">
+    <div class="card bg-dark white-text text-center mb-3 additive waves-effect" style="padding: 13.725rem 0;" data-toggle="modal" data-target="#tambahBuku">
       <div class="card-body">
         <i class="fas fa-plus fa-3x"></i>
       </div>
@@ -162,15 +162,15 @@
           @csrf
           <div class="modal-body">
             <div class="row">
-              <div class="col-md-4 col-sm-12">
-                <div class="row mb-3 mb-md-0 mx-1 p-5 text-center" style="border: 5px dashed #AAA; color: #AAA">
+              <div class="col-sm-12 col-md-12 col-lg-4">
+                <div class="row mb-3 mb-lg-0 mx-1 p-5 text-center" style="border: 5px dashed #AAA; color: #AAA">
                   <div class="col-12" id="thumbnail">
                     <i class="fas fa-book fa-3x mb-3"></i>
                     <h4>Pratinjau tidak tersedia</h4>
                   </div>
                 </div>
               </div>
-              <div class="col-md-8 col-sm-12">
+              <div class="col-sm-12 col-md-12 col-lg-8">
                 <div class="input-group mb-3">
                   <div class="custom-file">
                     <input type="file" name="upload" id="customFile" class="custom-file-input" />

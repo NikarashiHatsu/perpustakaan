@@ -2,16 +2,27 @@
 @section('content')
 @php($count = count($buku))
 <div class="container-fluid elegant-color">
+  <div class="row purple-gradient py-4 white-text">
+    <div class="col-sm-12 col-lg-6 text-center my-4 my-lg-5">
+      <i class="fas fa-tags fa-5x mt-lg-5 pt-lg-3"></i>
+    </div>
+    <div class="col-sm-12 col-lg-6 py-sm-0 py-lg-5">
+      <h1>Kategori</h1>
+      <hr />
+      <p class="mb-3" style="text-align: justify;">Kategori adalah suatu bagian dari klasifikasi sistem. Dalam hal ini, kategori menyontir buku yang terkait dengan kategori untuk memudahkan pencarian.</p>
+      <p>Hasil pencarian kategori "{{ ucwords(str_replace('_', ' ', $nama_kategori)) }}". (Ditemukan {{ $count }} buku)</p>
+    </div>
+  </div>
   <div class="row pt-4">
     @php($id = 1)
     @forelse($buku as $buku)
       <div class="col-sm-12 col-md-6 col-lg-3 col-xl-2">
-        <div class="card mb-4">
+        <div class="card mb-4 p">
           <small>
-            <img class="card-image-thumbnail" style="height: 100% !important; width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
+            <img class="card-image-thumbnail" style="width: 100%;" src="{{ asset('/img/book_page/' . $buku->book_name . '_page_1.jpg') }}" alt="">
             <div class="card-body">
               <a onclick="relink({!! $buku->id !!})" class='black-text'>
-                <h6>{{ mb_strimwidth($buku->book_title, 0, 18, '...') }}</h6>
+                <h6 class="truncate">{{ mb_strimwidth($buku->book_title, 0, 100, '...') }}</h6>
               </a>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
               <a href="{{ url('/kontributor/nikarashihatsu') }}">
@@ -39,7 +50,7 @@
                 @endfor
               </p>
               <hr style='border-top: 1px solid rgba(0, 0, 0, 0.1) !important;' class="my-2" />
-              <p class="mb-1 black-text">
+              <p class="mb-0 black-text">
                 <i class="fas fa-clock mr-3"></i>
                 <span id="time{{ $id }}" style="text-transform: capitalize;"></span>
                 @php($time = explode(',', str_replace(' ', ',', str_replace('-', ' ', str_replace(':', ' ', $buku->created_at)))))
@@ -49,14 +60,6 @@
                   moment.locale('id');
                   $("#time{{ $id }}").html(moment([{{ $time }}]).fromNow())
                 </script>
-              </p>
-              <p class="mb-1 black-text">
-                <i class="fas fa-eye mr-3"></i>
-                {{ count($buku->views) }}x dilihat
-              </p>
-              <p class="mb-0 black-text">
-                <i class="fas fa-download mr-3"></i>
-                {{ count($buku->downloads) }}x diunduh
               </p>
             </div>
           </small>
@@ -83,13 +86,6 @@
         </table>
       </div>
     @endforelse
-    <div class="col-sm-12">
-      @if($count > 6)
-        <h6 class="text-right mb-3">
-          <a href="{{ url('/buku') }}" class="white-text">Lihat selengkapnya</a>
-        </h6>
-      @endif
-    </div>
   </div>
 </div>
 <form id="token">
