@@ -1,3 +1,3 @@
 # Perpustakaan Digital // e-Library
 
-Informasi selengkapnya masih dibangun // Complete information is in progress.
+THIS PROJECT IS DISCONTINUED DUE TO NO APPRECIATION
